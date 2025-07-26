@@ -23,7 +23,6 @@ import {
 import { Eye, EyeOff, Scale } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { useAuth } from "@/hooks/useAuth";
-import Image from "next/image";
 
 const AuthForm = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -167,9 +166,9 @@ const AuthForm = () => {
     <div className="min-h-screen flex items-center justify-center px-4">
       <Card className="w-full bg-transparent max-w-md rounded-none">
         <CardHeader className="text-center">
-          <div className="flex items-center justify-center space-x-2 mb-4">
-             <Image src="/logo.png" alt="Logo" height={42} width={42} />
-          </div>
+            <div className="border p-2 rounded-none">
+              <Scale className="w-6 h-6" />
+            </div>
           <CardTitle>Welcome</CardTitle>
           <CardDescription>Sign in to access legal services</CardDescription>
         </CardHeader>
