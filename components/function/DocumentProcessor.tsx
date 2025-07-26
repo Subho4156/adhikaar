@@ -727,7 +727,7 @@ const DocumentProcessor = () => {
                     onChange={(e) => setApiKey(e.target.value)}
                   />
                 </div>
-                <Button onClick={handleApiKeySubmit} className="w-full">
+                <Button onClick={handleApiKeySubmit} className="w-full cursor-pointer">
                   Save API Key
                 </Button>
                 <p className="text-xs text-slate-500 text-center">
@@ -1135,7 +1135,7 @@ const DocumentProcessor = () => {
                                   )
                                 }
                               >
-                                <Download className="w-4 h-4" />
+                                <Download className="w-4 h-4 cursor-pointer" />
                               </Button>
                             </>
                           )}
@@ -1317,7 +1317,7 @@ const DocumentProcessor = () => {
                                 )
                               }
                             >
-                              <Download className="w-4 h-4" />
+                              <Download className="w-4 h-4 cursor-pointer" />
                             </Button>
                           )}
                           <Button
