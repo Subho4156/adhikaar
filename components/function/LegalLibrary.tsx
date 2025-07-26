@@ -131,7 +131,7 @@ const LegalLibrary = () => {
   const getRoleBadgeColor = (role: string) => {
     switch (role?.toLowerCase()) {
       case "lawyer":
-        return "bg-blue-100 text-blue-800";
+        return "bg-blue-100 text-blue-600";
       case "barrister":
         return "bg-purple-100 text-purple-800";
       case "government_official":
@@ -206,12 +206,12 @@ const LegalLibrary = () => {
               {documents.map((doc) => (
                 <Card
                   key={doc.id}
-                  className="hover:shadow-lg transition-shadow"
+                  className="hover:shadow-lg transition-shadow rounded-none"
                 >
                   <CardHeader>
                     <div className="flex justify-between items-start mb-2">
-                      <Badge variant="outline">{doc.category}</Badge>
-                      <span className="text-sm text-slate-500">
+                      <Badge variant="outline" className="rounded-none">{doc.category}</Badge>
+                      <span className="text-sm text-muted-foreground">
                         {new Date(doc.created_at).getFullYear()}
                       </span>
                     </div>
@@ -230,17 +230,17 @@ const LegalLibrary = () => {
                         {doc.description}
                       </p>
                     )}
-                    <div className="flex items-center space-x-3 mb-4 p-3 bg-slate-50 rounded-lg">
+                    <div className="flex items-center space-x-3 mb-4 p-3 bg-slate-50 rounded-none">
                       <Avatar className="w-8 h-8">
                         <AvatarFallback className="text-xs">
                           {getAuthorInitials(doc.author.name)}
                         </AvatarFallback>
                       </Avatar>
-                      <div className="flex-1 min-w-0">
+                      <div className="flex-1 flex flex-row justify-between  min-w-0">
                         <p className="text-sm font-medium text-slate-900 truncate">
                           {doc.author.name || "Anonymous"}
                         </p>
-                        <div className="flex items-center space-x-2">
+                        <div className="flex items-center  space-x-2">
                           <Badge
                             variant="secondary"
                             className={`text-xs px-2 py-0.5 ${getRoleBadgeColor(

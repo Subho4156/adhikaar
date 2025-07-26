@@ -824,7 +824,7 @@ const DocumentProcessor = () => {
                       </Button>
 
                       {isAnalyzing && (
-                        <div className="absolute inset-0 z-10 bg-primary/60 backdrop-blur-sm rounded-lg flex flex-col items-center justify-center space-y-3">
+                        <div className="absolute inset-0 z-10 bg-primary/60 backdrop-blur-sm rounded-none flex flex-col items-center justify-center space-y-3">
                           <div className="w-10 h-10 border-4 border-dotted border-sky-500 border-t-transparent rounded-full animate-spin" />
                           <p className="text-slate-600 text-sm font-medium">
                             Analyzing your document...
@@ -842,7 +842,7 @@ const DocumentProcessor = () => {
                     <CardContent className="p-6">
                       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                         <div className="flex items-center space-x-4">
-                          <div className="bg-slate-100 p-3 rounded-lg">
+                          <div className="bg-slate-100 p-3 rounded-none">
                             <FileText className="w-4 h-4 text-slate-600" />
                           </div>
                           <div>
@@ -898,7 +898,7 @@ const DocumentProcessor = () => {
                             <h5 className="font-medium text-slate-700 mb-2">
                               Document Summary
                             </h5>
-                            <p className="text-sm text-slate-600 bg-slate-50 p-3 rounded-lg">
+                            <p className="text-sm text-slate-600 bg-slate-50 p-3 rounded-none">
                               {doc.analysis.summary}
                             </p>
                           </div>
@@ -989,7 +989,7 @@ const DocumentProcessor = () => {
                 </CardHeader>
                 <CardContent className="relative space-y-4">
                   {isGenerating && (
-                    <div className="absolute inset-0 z-10 bg-white/60 backdrop-blur-sm rounded-lg flex flex-col items-center justify-center space-y-3">
+                    <div className="absolute inset-0 z-10 bg-white/60 backdrop-blur-sm rounded-none flex flex-col items-center justify-center space-y-3">
                       <div className="w-10 h-10 border-4 border-dotted border-sky-500 border-t-transparent rounded-full animate-spin" />
                       <p className="text-slate-600 text-sm font-medium">
                         Generating your document...
@@ -1049,11 +1049,11 @@ const DocumentProcessor = () => {
               </Card>
               <div ref={generatedSectionRef} className="space-y-4">
                 {generatedDocs.map((doc) => (
-                  <Card key={doc.id} className="overflow-hidden">
+                  <Card key={doc.id} className="overflow-hidden rounded-none">
                     <CardContent className="p-6">
                       <div className="flex items-center justify-between flex-wrap">
                         <div className="flex items-center space-x-4">
-                          <div className="bg-slate-100 p-3 rounded-lg">
+                          <div className="bg-slate-100 p-3 rounded-none">
                             <FileEdit className="w-4 h-4 text-slate-600" />
                           </div>
                           <div>
@@ -1083,7 +1083,7 @@ const DocumentProcessor = () => {
                             }
                           >
                             {doc.status === "completed" && (
-                              <CheckCircle className="w-3 h-3 mr-1" />
+                              <CheckCircle className="w-3 h-3 mr-1 " />
                             )}
                             {doc.status === "generating" && (
                               <div className="w-3 h-3 mr-1 animate-spin rounded-full border-2 border-slate-400 border-t-slate-600" />
@@ -1167,7 +1167,8 @@ const DocumentProcessor = () => {
                               placeholder="Edit your document content here..."
                             />
                           ) : (
-                            <div className="bg-white border rounded-lg p-4 max-h-96 overflow-y-auto">
+                            <div className="bg-white border rounded-none p-4 max-h-96 overflow-y-auto">
+                            
                               <div className="text-sm text-slate-700">
                                 {renderFormattedText(doc.content)}
                               </div>
@@ -1247,7 +1248,7 @@ const DocumentProcessor = () => {
                         {isTranslating ? "Translating..." : "Choose PDF Files"}
                       </Button>
                       {isTranslating && (
-                        <div className="absolute inset-0 z-10 bg-white/60 backdrop-blur-sm rounded-lg flex flex-col items-center justify-center space-y-3">
+                        <div className="absolute inset-0 z-10 bg-white/60 backdrop-blur-sm rounded-none flex flex-col items-center justify-center space-y-3">
                           <div className="w-10 h-10 border-4 border-dotted border-sky-500 border-t-transparent rounded-full animate-spin" />
                           <p className="text-slate-600 text-sm font-medium">
                             Translating your document...
@@ -1264,7 +1265,7 @@ const DocumentProcessor = () => {
                     <CardContent className="p-6">
                       <div className="flex items-center justify-between flex-wrap">
                         <div className="flex items-center space-x-4">
-                          <div className="bg-slate-100 p-3 rounded-lg">
+                          <div className="bg-slate-100 p-3 rounded-none">
                             <Languages className="w-4 h-4 text-slate-600" />
                           </div>
                           <div>

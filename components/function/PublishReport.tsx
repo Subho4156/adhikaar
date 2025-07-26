@@ -356,22 +356,22 @@ const PublishReport = () => {
     }
 
     return (
-        <div className="min-h-screen bg-black">
+        <div className="min-h-screen ">
             <Navbar />
             <div className="mt-3 pt-24 px-4 py-8">
                 <div className="max-w-6xl mx-auto">
                     <div className="mb-8">
-                        <h1 className="text-3xl font-bold text-white">Publish Legal Report</h1>
+                        <h1 className="text-3xl font-bold text-primary">Publish Legal Report</h1>
                         <p className="text-slate-400 mt-2">Share your legal expertise with the community</p>
                         <div className="mt-4 p-4 bg-sky-50 rounded-none">
-                            <p className="text-sm text-sky-700">
+                            <p className="text-sm text-background">
                                 <strong>Total Published Reports:</strong> {reports.length}
                             </p>
                         </div>
-                    </div>
+                    </div>  
 
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                        <Card>
+                        <Card className='rounded-none'>
                             <CardHeader>
                                 <CardTitle className="mt-1 flex items-center space-x-2">
                                     <FileText className="w-5 h-5" />
@@ -615,7 +615,7 @@ const PublishReport = () => {
                             </CardContent>
                         </Card>
 
-                        <Card>
+                        <Card className='rounded-none'>
                             <CardHeader>
                                 <CardTitle>Your Published Reports ({reports.length})</CardTitle>
                                 <CardDescription>
@@ -631,7 +631,7 @@ const PublishReport = () => {
                                 ) : (
                                     <div className="space-y-4">
                                         {reports.map((report) => (
-                                            <div key={report.id} className="border border-slate-200 rounded-lg p-4">
+                                            <div key={report.id} className="border  rounded-none p-4">
                                                 <div className="flex justify-between items-start">
                                                     <div className="flex-1 min-w-0">
                                                         <h3 className="font-medium text-slate-900 truncate">{report.title}</h3>
