@@ -230,14 +230,14 @@ const LegalLibrary = () => {
                         {doc.description}
                       </p>
                     )}
-                    <div className="flex items-center space-x-3 mb-4 p-3 bg-slate-50 rounded-none">
+                    <div className="flex items-center space-x-3 mb-4 p-3 border rounded-none">
                       <Avatar className="w-8 h-8">
                         <AvatarFallback className="text-xs">
                           {getAuthorInitials(doc.author.name)}
                         </AvatarFallback>
                       </Avatar>
                       <div className="flex-1 flex flex-row justify-between  min-w-0">
-                        <p className="text-sm font-medium text-slate-900 truncate">
+                        <p className="text-sm font-medium text-primary truncate">
                           {doc.author.name || "Anonymous"}
                         </p>
                         <div className="flex items-center  space-x-2">
