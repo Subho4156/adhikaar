@@ -791,7 +791,7 @@ const ChatModal: React.FC<{
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div className="bg-white rounded-lg w-full max-w-md mx-4 h-96 flex flex-col">
+      <div className=" rounded-none border-2 w-full max-w-md mx-4 h-96 flex flex-col">
         <div className="flex items-center justify-between p-4 border-b">
           <h3 className="text-lg font-medium">Chat with {participantName}</h3>
           <Button variant="ghost" size="sm" onClick={onClose}>
@@ -1278,23 +1278,23 @@ const VideoConsult = () => {
       if (isAdvocate) {
         hasPaidConsultation = consultationRequests.some(
           (req) =>
-            req.clientId === participantId && req.paymentStatus === "paid"
+            req.clientId === participantId 
         );
       } else {
         hasPaidConsultation = clientRequests.some(
           (req) =>
-            req.advocateId === participantId && req.paymentStatus === "paid"
+            req.advocateId === participantId 
         );
       }
 
-      if (!hasPaidConsultation) {
-        toast({
-          title: "Payment Required",
-          description: "Please complete payment before starting a video call.",
-          variant: "destructive",
-        });
-        return;
-      }
+      // if (!hasPaidConsultation) {
+      //   toast({
+      //     title: "Payment Required",
+      //     description: "Please complete payment before starting a video call.",
+      //     variant: "destructive",
+      //   });
+      //   return;
+      // }
 
       const isParticipantOnline = userOnlineStatus[participantId];
       if (!isParticipantOnline) {
@@ -1344,26 +1344,26 @@ const VideoConsult = () => {
   };
 
   const handleStartChat = (participantId: string) => {
-    let hasPaidConsultation = false;
+    let hasPaidConsultation = true;
     if (isAdvocate) {
       hasPaidConsultation = consultationRequests.some(
-        (req) => req.clientId === participantId && req.paymentStatus === "paid"
+        (req) => req.clientId === participantId 
       );
     } else {
       hasPaidConsultation = clientRequests.some(
         (req) =>
-          req.advocateId === participantId && req.paymentStatus === "paid"
+          req.advocateId === participantId 
       );
     }
 
-    if (!hasPaidConsultation) {
-      toast({
-        title: "Payment Required",
-        description: "Please complete payment before starting a chat.",
-        variant: "destructive",
-      });
-      return;
-    }
+    // if (!hasPaidConsultation) {
+    //   toast({
+    //     title: "Payment Required",
+    //     description: "Please complete payment before starting a chat.",
+    //     variant: "destructive",
+    //   });
+    //   return;
+    // }
 
     setActiveChat(participantId);
     setIsChatOpen(true);
@@ -1764,7 +1764,7 @@ const ClientDashboard: React.FC<ClientDashboardProps> = ({
           const isPaid = !!paidConsultation;
 
                     return (
-                        <Card key={lawyer.id} className="hover:shadow-lg transition-shadow">
+                        <Card key={lawyer.id} className="bg-transparent rounded-none">
                             <CardHeader>
                                 <div className="flex items-start space-x-4">
                                     <Image
@@ -1813,7 +1813,7 @@ const ClientDashboard: React.FC<ClientDashboardProps> = ({
                                             </Badge>
                                         ))}
                                     </div>
-                                    <div className="text-lg font-semibold text-sky-600">
+                                    <div className="text-lg font-semibold text-primary">
                                         ₹{lawyer.rate}/hour
                                     </div>
                                     {isPaid && (
@@ -1823,7 +1823,7 @@ const ClientDashboard: React.FC<ClientDashboardProps> = ({
                                         </Badge>
                                     )}
                                 </div>
-
+                                      
                 <div className="space-y-2">
                   <Button
                     className="w-full"
@@ -1834,43 +1834,25 @@ const ClientDashboard: React.FC<ClientDashboardProps> = ({
                         : onBookConsultation(lawyer)
                     }
                   >
-                    <Video className="w-4 h-4 mr-2" />
+                    <Video className="w-4 h-4" />
                     {!isPaid
                       ? "Request Consultation"
                       : userOnlineStatus[lawyer.id]
                       ? "🟢 Start Video Call (Online)"
                       : "Call (Offline - Will Notify)"}
                   </Button>
-                  <div className="flex space-x-2">
+                  <div className="flex space-x-2 ">
                     <Button
                       variant="outline"
                       size="sm"
-                      className="flex-1"
+                      className="flex-1 p-4"
                       disabled={isPaid}
                       onClick={() => onStartChat(lawyer.id)}
                     >
-                      <MessageCircle className="w-4 h-4 mr-1" />
+                      <MessageCircle className="w-4 h-4" />
                       Chat
                     </Button>
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      className="flex-1"
-                      disabled={isPaid}
-                    >
-                      <Phone className="w-4 h-4 mr-1" />
-                      Call
-                    </Button>
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      className="flex-1"
-                      disabled={isPaid}
-                      onClick={() => isPaid && onStartChat(lawyer.id)}
-                    >
-                      <MessageCircle className="w-4 h-4 mr-1" />
-                      Message
-                    </Button>
+                  
                   </div>
                 </div>
               </CardContent>
