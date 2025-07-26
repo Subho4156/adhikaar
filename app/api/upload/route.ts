@@ -114,7 +114,7 @@ export async function POST(request: NextRequest) {
             const uploadResponse = await new Promise((resolve, reject) => {
                 cloudinary.uploader.upload_stream(
                     {
-                        resource_type: 'image', // Changed to 'image' to enable PDF processing
+                        resource_type: 'raw', // Changed to 'image' to enable PDF processing
                         folder: `legal-documents/${session.user.id}`,
                         use_filename: true,
                         unique_filename: true,
