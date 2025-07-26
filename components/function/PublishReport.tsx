@@ -356,14 +356,14 @@ const PublishReport = () => {
     }
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-slate-50 to-sky-50">
+        <div className="min-h-screen bg-black">
             <Navbar />
             <div className="mt-3 pt-24 px-4 py-8">
                 <div className="max-w-6xl mx-auto">
                     <div className="mb-8">
-                        <h1 className="text-3xl font-bold text-slate-900">Publish Legal Report</h1>
-                        <p className="text-slate-600 mt-2">Share your legal expertise with the community</p>
-                        <div className="mt-4 p-4 bg-sky-50 rounded-lg">
+                        <h1 className="text-3xl font-bold text-white">Publish Legal Report</h1>
+                        <p className="text-slate-400 mt-2">Share your legal expertise with the community</p>
+                        <div className="mt-4 p-4 bg-sky-50 rounded-none">
                             <p className="text-sm text-sky-700">
                                 <strong>Total Published Reports:</strong> {reports.length}
                             </p>
