@@ -37,7 +37,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
       if (res.ok) {
         const data = await res.json();
-        setSession(data);
+        setSession(data.session || null);
       } else {
         setSession(null);
       }
