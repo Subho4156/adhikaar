@@ -6,6 +6,7 @@ import {
   BookOpen,
   Video,
   ArrowRight,
+  FileSearch ,
 } from "lucide-react";
 
 const ServicesSection = () => {
@@ -43,12 +44,12 @@ const ServicesSection = () => {
       href: "/library",
     },
     {
-      icon: <Video className="w-8 h-8" />,
-      title: "Video Consultation",
+      icon: <FileSearch className="w-8 h-8" />,
+      title: "Document Processor",
       description:
-        "Connect with verified advocates for secure video consultations with integrated scheduling and payments.",
+        "Securely upload and manage documents with smart validation and easy sharing.",
       features: ["Verified Lawyers", "Secure Calls", "Easy Scheduling"],
-      href: "/consult",
+      href: "/document-processor",
     },
   ];
 
