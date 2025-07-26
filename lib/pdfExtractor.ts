@@ -59,7 +59,7 @@ export async function extractPDFText(arrayBuffer: ArrayBuffer): Promise<string> 
         return extractedText.length > 10 ? extractedText : 'No readable text found in PDF';
 
     } catch (error) {
-        console.error('PDF text extraction error:', error);
+        //console.error('PDF text extraction error:', error);
         return 'Failed to extract text from PDF';
     }
 }
@@ -98,7 +98,7 @@ export async function extractPDFTextAdvanced(arrayBuffer: ArrayBuffer): Promise<
 
                 fullText += pageText + '\n';
             } catch (pageError) {
-                console.warn(`Error extracting text from page ${i}:`, pageError);
+                //console.warn(`Error extracting text from page ${i}:`, pageError);
                 continue;
             }
         }
@@ -107,7 +107,7 @@ export async function extractPDFTextAdvanced(arrayBuffer: ArrayBuffer): Promise<
         return fullText.trim();
 
     } catch (error) {
-        console.error('Advanced PDF extraction error:', error);
+        //console.error('Advanced PDF extraction error:', error);
         throw error;
     }
 }

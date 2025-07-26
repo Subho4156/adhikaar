@@ -78,7 +78,7 @@ Generate a complete, ready-to-use legal document that follows industry standards
         return NextResponse.json({ content: cleanContent });
 
     } catch (error) {
-        console.error('Document generation error:', error);
+        //console.error('Document generation error:', error);
         return NextResponse.json(
             { error: 'Failed to generate document' },
             { status: 500 }

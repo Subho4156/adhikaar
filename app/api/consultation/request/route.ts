@@ -81,7 +81,7 @@ export async function POST(request: NextRequest) {
         });
 
     } catch (error) {
-        console.error('Error creating consultation request:', error);
+        //console.error('Error creating consultation request:', error);
         return NextResponse.json(
             { error: 'Internal server error' },
             { status: 500 }
@@ -153,7 +153,7 @@ export async function GET(request: NextRequest) {
         return NextResponse.json({ requests });
 
     } catch (error) {
-        console.error('Error fetching consultation requests:', error);
+        //console.error('Error fetching consultation requests:', error);
         return NextResponse.json(
             { error: 'Internal server error' },
             { status: 500 }

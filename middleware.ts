@@ -4,11 +4,11 @@ export async function middleware(request: NextRequest) {
     const { pathname } = request.nextUrl
     const token = request.cookies.get('auth-token')?.value
 
-    console.log('Middleware checking:', pathname);
+    //console.log('Middleware checking:', pathname);
 
     // Allow all API routes to pass through without authentication checks
     if (pathname.startsWith('/api/')) {
-        console.log('Allowing API route:', pathname);
+        //console.log('Allowing API route:', pathname);
         return NextResponse.next();
     }
 
@@ -33,7 +33,7 @@ export async function middleware(request: NextRequest) {
 
     // If no token and accessing protected routes, redirect to auth
     if (!token && (isVKYCRequiredPath || isVKYCPath)) {
-        console.log('No token, redirecting to auth');
+        //console.log('No token, redirecting to auth');
         return NextResponse.redirect(new URL('/auth', request.url));
     }
 
@@ -53,16 +53,16 @@ export async function middleware(request: NextRequest) {
                 throw new Error('Invalid token');
             }
 
-            console.log('Token validated successfully');
+            //console.log('Token validated successfully');
         } catch (error) {
-            console.log('Token validation failed:', error);
+            //console.log('Token validation failed:', error);
             const response = NextResponse.redirect(new URL('/auth', request.url));
             response.cookies.delete('auth-token');
             return response;
         }
     }
 
-    console.log('Allowing request to proceed');
+    //console.log('Allowing request to proceed');
     return NextResponse.next();
 }
 

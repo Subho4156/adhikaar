@@ -23,7 +23,7 @@ export async function getProfileAction(userId: string) {
 
         return profile
     } catch (error) {
-        console.error('Profile fetch error:', error)
+        //console.error('Profile fetch error:', error)
         return null
     }
 }

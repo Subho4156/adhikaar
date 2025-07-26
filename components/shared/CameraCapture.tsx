@@ -39,7 +39,7 @@ const CameraCapture = ({ onCapture, onClose, title = "Take Photo" }: CameraCaptu
         };
       }
     } catch (error) {
-      console.error('Error accessing camera:', error);
+      //console.error('Error accessing camera:', error);
       alert('Unable to access camera. Please ensure you have granted camera permissions.');
     }
   }, []);

@@ -49,7 +49,7 @@ async function getSession(request: NextRequest) {
             }
         };
     } catch (error) {
-        console.error('Session verification error:', error);
+        //console.error('Session verification error:', error);
         return null;
     }
 }
@@ -116,7 +116,7 @@ export async function GET(request: NextRequest) {
             });
 
         } catch (dbError) {
-            console.error('Database error:', dbError);
+            //console.error('Database error:', dbError);
 
             // Return empty array instead of error for database connection issues
             return NextResponse.json({
@@ -127,7 +127,7 @@ export async function GET(request: NextRequest) {
         }
 
     } catch (error) {
-        console.error('Error fetching reports:', error);
+        //console.error('Error fetching reports:', error);
 
         // Return empty array instead of error
         return NextResponse.json({
@@ -209,7 +209,7 @@ export async function POST(request: NextRequest) {
         });
 
     } catch (error) {
-        console.error('Error creating report:', error);
+        //console.error('Error creating report:', error);
         return NextResponse.json(
             { error: 'Failed to create report' },
             { status: 500 }
@@ -263,9 +263,9 @@ export async function DELETE(request: NextRequest) {
                 await cloudinary.uploader.destroy(report.cloudinary_public_id, {
                     resource_type: 'raw'
                 });
-                console.log('Successfully deleted from Cloudinary:', report.cloudinary_public_id);
+                //console.log('Successfully deleted from Cloudinary:', report.cloudinary_public_id);
             } catch (cloudinaryError) {
-                console.error('Error deleting from Cloudinary:', cloudinaryError);
+                //console.error('Error deleting from Cloudinary:', cloudinaryError);
                 // Continue with database deletion even if Cloudinary deletion fails
             }
         }
@@ -278,7 +278,7 @@ export async function DELETE(request: NextRequest) {
         return NextResponse.json({ success: true });
 
     } catch (error) {
-        console.error('Error deleting report:', error);
+        //console.error('Error deleting report:', error);
         return NextResponse.json(
             { error: 'Failed to delete report' },
             { status: 500 }

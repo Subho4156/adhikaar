@@ -37,7 +37,7 @@ const ProtectedRoute = ({ children, requireVKYC = false }: ProtectedRouteProps) 
             }
           }
         } catch (error) {
-          console.error('VKYC check error:', error);
+          //console.error('VKYC check error:', error);
           return;
         }
       }

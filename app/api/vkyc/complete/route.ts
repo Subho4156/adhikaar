@@ -88,7 +88,7 @@ export async function POST(req: NextRequest) {
             kycType: finalKycType
         })
     } catch (error) {
-        console.error('VKYC completion error:', error)
+        //console.error('VKYC completion error:', error)
         return NextResponse.json({
             error: 'VKYC completion failed',
             details: error instanceof Error ? error.message : 'Unknown error'
