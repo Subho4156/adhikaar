@@ -126,7 +126,7 @@ const AuthForm = () => {
         });
 
         setTimeout(() => {
-          router.push("/vkyc");
+          window.location.href = "/vkyc";
         }, 1000);
       } else {
         toast({
