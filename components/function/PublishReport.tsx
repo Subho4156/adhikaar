@@ -509,7 +509,7 @@ const PublishReport = () => {
                                                 <div
                                                     {...getRootProps()}
                                                     className={`
-                                                        border-2 border-dashed rounded-lg p-8 text-center cursor-pointer transition-all duration-200
+                                                        border-2 border-dashed rounded-none p-8 text-center cursor-pointer transition-all duration-200
                                                         ${isDragActive && !isDragReject ? 'border-sky-400 bg-sky-50' : ''}
                                                         ${isDragReject ? 'border-red-400 bg-red-50' : ''}
                                                         ${!isDragActive ? 'border-gray-300 hover:border-sky-400 hover:bg-sky-50' : ''}
@@ -636,7 +636,7 @@ const PublishReport = () => {
                                                     <div className="flex-1 min-w-0">
                                                         <h3 className="font-medium text-slate-900 truncate">{report.title}</h3>
                                                         <div className="flex items-center space-x-2 mt-1">
-                                                            <Badge variant="outline" className="text-xs">{report.category}</Badge>
+                                                            <Badge variant="outline" className="text-xs rounded-none">{report.category}</Badge>
                                                             {report.court && (
                                                                 <Badge variant="secondary" className="text-xs">
                                                                     <Scale className="w-3 h-3 mr-1" />
