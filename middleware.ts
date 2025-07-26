@@ -23,13 +23,13 @@ export async function middleware(request: NextRequest) {
     // VKYC route (requires auth but not VKYC completion)
     const isVKYCPath = pathname === '/vkyc'
 
-    console.log('Route analysis:', {
-        pathname,
-        isPublicPath,
-        isVKYCRequiredPath,
-        isVKYCPath,
-        hasToken: !!token
-    });
+    // console.log('Route analysis:', {
+    //     pathname,
+    //     isPublicPath,
+    //     isVKYCRequiredPath,
+    //     isVKYCPath,
+    //     hasToken: !!token
+    // });
 
     // If no token and accessing protected routes, redirect to auth
     if (!token && (isVKYCRequiredPath || isVKYCPath)) {
