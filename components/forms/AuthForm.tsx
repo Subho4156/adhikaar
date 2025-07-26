@@ -42,16 +42,20 @@ const AuthForm = () => {
   const { session, loading, login, register } = useAuth();
 
   useEffect(() => {
-    if (!loading && session?.user) {
-      //console.log("Session detected, checking VKYC status...");
+  if (loading) return;
+  if (!session?.user) return;
 
-      if (session.user.vkyc_completed) {
-        router.push("/");
-      } else {
-        router.push("/vkyc");
-      }
-    }
-  }, [session, loading, router]);
+  if (redirecting) return; // prevent loop
+
+  setRedirecting(true); // mark as redirecting
+
+  if (session.user.vkyc_completed) {
+    router.push("/");
+  } else {
+    router.push("/vkyc");
+  }
+}, [session, loading, redirecting, router]);
+
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData((prev) => ({
