@@ -1761,82 +1761,66 @@ const ClientDashboard: React.FC<ClientDashboardProps> = ({
           );
           const isPaid = !!paidConsultation;
 
-          return (
-            <Card key={lawyer.id} className="rounded-none bg-transparent">
-              <CardHeader>
-                <div className="flex items-start space-x-4">
-                  <Image
-                    width={64}
-                    height={64}
-                    src={lawyer.image}
-                    alt={lawyer.name}
-                    className="w-16 h-16 rounded-full object-cover bg-primary"
-                  />
-                  <div className="flex-1">
-                    <div className="flex items-center justify-between mb-1">
-                      <CardTitle className="text-lg">{lawyer.name}</CardTitle>
-                      <div className="flex items-center space-x-2">
-                        <div
-                          className={`w-3 h-3 rounded-full ${
-                            userOnlineStatus[lawyer.id]
-                              ? "bg-green-500"
-                              : "bg-gray-400"
-                          }`}
-                        ></div>
-                        <span
-                          className={`text-xs font-medium ${
-                            userOnlineStatus[lawyer.id]
-                              ? "text-green-600"
-                              : "text-gray-500"
-                          }`}
-                        >
-                          {userOnlineStatus[lawyer.id] ? "Online" : "Offline"}
-                        </span>
-                      </div>
-                    </div>
-                    <CardDescription className="text-sm">
-                      {lawyer.specialization}
-                    </CardDescription>
-                    <div className="flex items-center space-x-4 mt-2 text-sm text-slate-600">
-                      <div className="flex items-center space-x-1">
-                        <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
-                        <span>{lawyer.rating}</span>
-                      </div>
-                      <div className="flex items-center space-x-1">
-                        <Clock className="w-4 h-4" />
-                        <span>{lawyer.experience}+ years</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-3 mb-4">
-                  <div className="flex items-center space-x-2 text-sm text-muted-foreground">
-                    <MapPin className="w-4 h-4" />
-                    <span>{lawyer.location}</span>
-                  </div>
-                  <div className="flex flex-wrap gap-1">
-                    {lawyer.languages.map((lang, index) => (
-                      <Badge
-                        key={index}
-                        variant="secondary"
-                        className="text-xs"
-                      >
-                        {lang}
-                      </Badge>
-                    ))}
-                  </div>
-                  <div className="text-lg font-semibold text-primary">
-                    ₹{lawyer.rate}/hour
-                  </div>
-                  {isPaid && (
-                    <Badge className="bg-green-100 text-green-800">
-                      <DollarSign className="w-3 h-3 mr-1" />
-                      Paid Access
-                    </Badge>
-                  )}
-                </div>
+                    return (
+                        <Card key={lawyer.id} className="hover:shadow-lg transition-shadow">
+                            <CardHeader>
+                                <div className="flex items-start space-x-4">
+                                    <Image
+                                        width={64}
+                                        height={64}
+                                        src={lawyer.image}
+                                        alt={lawyer.name}
+                                        className="w-16 h-16 rounded-full object-cover bg-slate-200"
+                                    />
+                                    <div className="flex-1">
+                                        <div className="flex items-center justify-between mb-1">
+                                            <CardTitle className="text-lg">{lawyer.name}</CardTitle>
+                                            <div className="flex items-center space-x-2">
+                                                <div className={`w-3 h-3 rounded-full ${userOnlineStatus[lawyer.id] ? 'bg-green-500' : 'bg-gray-400'}`}></div>
+                                                <span className={`text-xs font-medium ${userOnlineStatus[lawyer.id] ? 'text-green-600' : 'text-gray-500'}`}>
+                                                    {userOnlineStatus[lawyer.id] ? 'Online' : 'Offline'}
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <CardDescription className="text-sm">
+                                            {lawyer.specialization}
+                                        </CardDescription>
+                                        <div className="flex items-center space-x-4 mt-2 text-sm text-slate-600">
+                                            <div className="flex items-center space-x-1">
+                                                <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+                                                <span>{lawyer.rating}</span>
+                                            </div>
+                                            <div className="flex items-center space-x-1">
+                                                <Clock className="w-4 h-4" />
+                                                <span>{lawyer.experience}+ years</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </CardHeader>
+                            <CardContent>
+                                <div className="space-y-3 mb-4">
+                                    <div className="flex items-center space-x-2 text-sm text-slate-600">
+                                        <MapPin className="w-4 h-4" />
+                                        <span>{lawyer.location}</span>
+                                    </div>
+                                    <div className="flex flex-wrap gap-1">
+                                        {lawyer.languages.map((lang, index) => (
+                                            <Badge key={index} variant="secondary" className="text-xs">
+                                                {lang}
+                                            </Badge>
+                                        ))}
+                                    </div>
+                                    <div className="text-lg font-semibold text-sky-600">
+                                        ₹{lawyer.rate}/hour
+                                    </div>
+                                    {isPaid && (
+                                        <Badge className="bg-green-100 text-green-800">
+                                            <DollarSign className="w-3 h-3 mr-1" />
+                                            Paid Access
+                                        </Badge>
+                                    )}
+                                </div>
 
                 <div className="space-y-2">
                   <Button
@@ -1893,26 +1877,23 @@ const ClientDashboard: React.FC<ClientDashboardProps> = ({
         })}
       </div>
 
-      {/* Emergency Consultation */}
-      <Card className="mt-8  rounded-none">
-        <CardHeader>
-          <CardTitle className="text-red-800 ">
-            Need Urgent Legal Help?
-          </CardTitle>
-          <CardDescription className="text-red-600">
-            Our emergency consultation service is available 24/7 for critical
-            legal matters.
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <Button className="bg-red-600 hover:bg-red-700">
-            <Phone className="w-4 h-4 mr-2" />
-            Emergency Consultation
-          </Button>
-        </CardContent>
-      </Card>
-    </div>
-  );
+            {/* Emergency Consultation */}
+            <Card className="mt-8  rounded-none">
+                <CardHeader>
+                    <CardTitle className="text-red-800 ">Need Urgent Legal Help?</CardTitle>
+                    <CardDescription className="text-red-600">
+                        Our emergency consultation service is available 24/7 for critical legal matters.
+                    </CardDescription>
+                </CardHeader>
+                <CardContent>
+                    <Button className="bg-red-600 hover:bg-red-700">
+                        <Phone className="w-4 h-4 mr-2" />
+                        Emergency Consultation
+                    </Button>
+                </CardContent>
+            </Card>
+        </div>
+    );
 };
 
 // Advocate Dashboard Component
