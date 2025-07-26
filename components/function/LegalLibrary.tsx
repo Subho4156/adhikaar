@@ -276,7 +276,7 @@ const LegalLibrary = () => {
                       <Button
                         size="sm"
                         variant="outline"
-                        className="flex-1"
+                        className="flex-1 cursor-pointer"
                         onClick={() => handleViewDocument(doc.pdf_url)}
                       >
                         <Eye className="w-4 h-4 mr-2" />
@@ -285,12 +285,12 @@ const LegalLibrary = () => {
                       <Button
                         size="sm"
                         variant="outline"
-                        className="flex-1"
+                        className="flex-1 cursor-pointer"
                         onClick={() =>
                           handleDownloadDocument(doc.pdf_url, doc.title)
                         }
                       >
-                        <Download className="w-4 h-4 mr-2" />
+                        <Download className="w-4 h-4 mr-2 " />
                         Download
                       </Button>
                     </div>

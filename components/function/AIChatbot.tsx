@@ -273,7 +273,7 @@ const AIChatbot = () => {
                 <Button
                   variant="outline"
                   size="sm"
-                  className="truncate min-w-0 flex-1 py-4 h-7"
+                  className="truncate min-w-0 flex-1 py-4 h-7 cursor-pointer"
                   onClick={clearChat}
                 >
                   Clear Chat
@@ -281,7 +281,7 @@ const AIChatbot = () => {
                 <Button
                   variant="outline"
                   size="sm"
-                  className="truncate min-w-0 flex-1 py-4 h-7"
+                  className="truncate min-w-0 flex-1 py-4 h-7 cursor-pointer"
                   onClick={resetApiKey}
                 >
                   Reset API Key
@@ -310,7 +310,7 @@ const AIChatbot = () => {
                       e.key === "Enter" && handleApiKeySubmit()
                     }
                   />
-                  <Button onClick={handleApiKeySubmit} className="w-full">
+                  <Button onClick={handleApiKeySubmit} className="w-full cursor-pointer">
                     Save API Key & Start Chatting
                   </Button>
                   <p className="text-xs text-muted-foreground text-center">

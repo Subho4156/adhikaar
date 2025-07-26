@@ -361,7 +361,7 @@ const PublishReport = () => {
             <div className="mt-3 pt-24 px-4 py-8">
                 <div className="max-w-6xl mx-auto">
                     <div className="mb-8">
-                        <h1 className="text-3xl font-bold text-white">Publish Legal Report</h1>
+                        <h1 className="text-3xl font-bold text-primary">Publish Legal Report</h1>
                         <p className="text-slate-400 mt-2">Share your legal expertise with the community</p>
                         <div className="mt-4 p-4 bg-sky-50 rounded-none">
                             <p className="text-sm text-sky-700">

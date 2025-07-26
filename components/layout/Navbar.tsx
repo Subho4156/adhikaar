@@ -268,7 +268,7 @@ const Navbar = () => {
                   </Link>
                   <Link
                     href="/auth"
-                    className="w-full mt-2 bg-gradient-to-r from-sky-400 to-sky-500 hover:from-sky-500 hover:to-sky-600 text-white px-3 py-2 rounded-lg text-base font-medium transition-all duration-200 text-center flex items-center justify-center space-x-2"
+                    className="w-full mt-2 bg-gradient-to-r from-sky-400 to-sky-500 hover:from-sky-500 hover:to-sky-600 text-primary px-3 py-2 rounded-lg text-base font-medium transition-all duration-200 text-center flex items-center justify-center space-x-2"
                     onClick={() => setIsMenuOpen(false)}
                   >
                     <LogIn className="w-4 h-4" />

@@ -239,7 +239,7 @@ const Profile = () => {
                 <CardHeader className="text-center">
                   <div className="flex items-center justify-center mb-4">
                     <div className="p-4 rounded-full border">
-                      <User className="w-6 h-6 text-white" />
+                      <User className="w-6 h-6 text-primary" />
                     </div>
                   </div>
                   <CardTitle>

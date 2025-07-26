@@ -138,7 +138,7 @@ const CameraCapture = ({ onCapture, onClose, title = "Take Photo" }: CameraCaptu
                 />
 
                 <div className="absolute inset-0 border-2 border-white/20 rounded-lg pointer-events-none">
-                  <div className="absolute top-4 left-4 right-4 text-white text-sm text-center">
+                  <div className="absolute top-4 left-4 right-4 text-primary text-sm text-center">
                     {!isCameraActive ? 'Starting camera...' : 'Position yourself in the frame'}
                   </div>
                 </div>
