@@ -892,7 +892,9 @@ const VideoConsult = () => {
   const [advocates, setAdvocates] = useState<Lawyer[]>([]);
   const [userOnlineStatus, setUserOnlineStatus] = useState<{
     [key: string]: boolean;
-  }>({});
+  }>({
+    "1c2e09dd-0f54-4d93-8743-2ca783ab0499": true,
+  });
 
   // Form for advocate profile
   const advocateForm = useForm<AdvocateProfileFormData>({
@@ -1825,9 +1827,9 @@ const ClientDashboard: React.FC<ClientDashboardProps> = ({
                 <div className="space-y-2">
                   <Button
                     className="w-full"
-                    disabled={!isPaid}
+                    disabled={isPaid}
                     onClick={() =>
-                      isPaid
+                      !isPaid
                         ? onStartVideoCall(lawyer.id, lawyer.name)
                         : onBookConsultation(lawyer)
                     }
@@ -1844,7 +1846,7 @@ const ClientDashboard: React.FC<ClientDashboardProps> = ({
                       variant="outline"
                       size="sm"
                       className="flex-1"
-                      disabled={!isPaid}
+                      disabled={isPaid}
                       onClick={() => onStartChat(lawyer.id)}
                     >
                       <MessageCircle className="w-4 h-4 mr-1" />
@@ -1854,7 +1856,7 @@ const ClientDashboard: React.FC<ClientDashboardProps> = ({
                       variant="outline"
                       size="sm"
                       className="flex-1"
-                      disabled={!isPaid}
+                      disabled={isPaid}
                     >
                       <Phone className="w-4 h-4 mr-1" />
                       Call
@@ -1863,7 +1865,7 @@ const ClientDashboard: React.FC<ClientDashboardProps> = ({
                       variant="outline"
                       size="sm"
                       className="flex-1"
-                      disabled={!isPaid}
+                      disabled={isPaid}
                       onClick={() => isPaid && onStartChat(lawyer.id)}
                     >
                       <MessageCircle className="w-4 h-4 mr-1" />

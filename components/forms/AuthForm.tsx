@@ -41,16 +41,20 @@ const AuthForm = () => {
   const { session, loading, login, register } = useAuth();
 
   useEffect(() => {
-    if (!loading && session?.user) {
-      //console.log("Session detected, checking VKYC status...");
+  if (loading) return;
+  if (!session?.user) return;
 
-      if (session.user.vkyc_completed) {
-        router.push("/");
-      } else {
-        router.push("/vkyc");
-      }
-    }
-  }, [session, loading, router]);
+  if (redirecting) return; // prevent loop
+
+  setRedirecting(true); // mark as redirecting
+
+  if (session.user.vkyc_completed) {
+    router.push("/");
+  } else {
+    router.push("/vkyc");
+  }
+}, [session, loading, redirecting, router]);
+
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData((prev) => ({
@@ -119,22 +123,28 @@ const AuthForm = () => {
 
       const data = await response.json();
 
-      if (response.ok && data.session) {
-        toast({
-          title: "Account Created Successfully!",
-          description: "Redirecting to verification...",
-        });
+     if (response.ok && data.session) {
+  toast({
+    title: "Account Created Successfully!",
+    description: "Signing you in...",
+  });
 
-        setTimeout(() => {
-          window.location.href = "/vkyc";
-        }, 1000);
-      } else {
-        toast({
-          title: "Error",
-          description: data.error || "Registration failed",
-          variant: "destructive",
-        });
-      }
+  // Now trigger login manually
+  const result = await login(formData.email, formData.password);
+
+  if (result?.success) {
+    toast({
+      title: "Redirecting...",
+    });
+    // session is now set, let useEffect handle redirect
+  } else {
+    toast({
+      title: "Login Failed",
+      description: result?.error || "Unable to sign in",
+      variant: "destructive",
+    });
+  }
+}
     } catch (error) {
       //console.error("Registration error:", error);
       toast({
