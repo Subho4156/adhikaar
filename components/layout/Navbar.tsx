@@ -25,7 +25,6 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useToast } from "@/hooks/use-toast";
 import { useAuth } from "@/hooks/useAuth";
-import Image from "next/image";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -117,10 +116,13 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <Link href="/" className="flex items-center space-x-2">
-              <Image src="/logo.png" alt="Logo" height={42} width={42} />
-            <span className="text- font-bold">Adhikaar</span>
+            <div className="border p-2 rounded-none">
+              <Scale className="w-6 h-6" />
+            </div>
+            <span className="text-xl font-bold">
+            Adhikaar
+            </span>
           </Link>
-
           <div className="hidden md:block">
             <div className="flex items-baseline space-x-6">
               {filteredNavItems.map((item) => (
@@ -175,25 +177,23 @@ const Navbar = () => {
                 </DropdownMenuContent>
               </DropdownMenu>
             ) : (
-                <>
+              <>
                 <Button
                   asChild
                   variant="ghost"
                   className="flex items-center space-x-1 rounded-none px-3 py-2 text-sm font-medium transition-colors duration-200"
                 >
                   <Link href="/auth">
-                  <span>Sign In</span>
+                    <span>Sign In</span>
                   </Link>
                 </Button>
                 <Button
                   asChild
                   className="px-4 py-2 rounded-none text-sm font-medium transition-all duration-200 transform hover:scale-105"
                 >
-                  <Link href="/auth">
-                  Get Started
-                  </Link>
+                  <Link href="/auth">Get Started</Link>
                 </Button>
-                </>
+              </>
             )}
           </div>
 

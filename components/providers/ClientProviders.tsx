@@ -11,11 +11,10 @@ interface ClientProvidersProps {
 }
 
 export default function ClientProviders({ children }: ClientProvidersProps) {
-    // Create QueryClient in component state to avoid SSR issues
     const [queryClient] = useState(() => new QueryClient({
         defaultOptions: {
             queries: {
-                staleTime: 60 * 1000, // 1 minute
+                staleTime: 60 * 1000,
                 retry: 1,
             },
         },
