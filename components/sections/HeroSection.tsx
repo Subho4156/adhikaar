@@ -16,40 +16,37 @@ const HeroSection = () => {
       <div className="absolute inset-0 bg-background/10 z-10" />
 
       <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <div className="inline-flex items-center space-x-2 bg-primary border text-background rounded-none px-4 py-1 text-sm mb-8">
+        <div className="inline-flex items-center space-x-2 border text-primary rounded-none px-4 py-1 text-sm mb-8">
           <Scale className="w-4 h-4" />
-          <span>Powered by AI</span>
+          <span>Introducing Adhikaar</span>
         </div>
 
-        <h1 className="text-2xl sm:text-xl lg:text-5xl font-bold mb-6">
+        <h1 className="text-2xl sm:text-xl lg:text-5xl font-bold mb-4">
           <span className="block">
-            Seamless Legal Support for <br /> India Powered by AI
+            Seamless Legal Support for <br /> India with AI
           </span>
         </h1>
 
-        <p className="text-md text-muted-foreground mb-8 max-w-3xl mx-auto leading-relaxed">
+        <p className="text-md text-muted-foreground mb-4 max-w-3xl mx-auto leading-relaxed">
           Your intelligent legal companion for document drafting, real-time
           translation, case research, and secure access to verified advocates
           across India.
         </p>
 
-        <div className="flex flex-wrap justify-center gap-3 mb-8">
-          {[
-            "IPC Section 420",
-            "Property Law",
-            "Family Court",
-            "Corporate Law",
-          ].map((suggestion) => (
-            <button
-              key={suggestion}
-              className="px-4 py-2 bg-transparent rounded-none text-primary"
-            >
-              {suggestion}
-            </button>
-          ))}
+        <div className="flex items-center justify-center gap-2">
+          <span className="text-sm text-muted-foreground leading-none">
+            Powered by
+          </span>
+          <Image
+            src="/gemini-logo.svg"
+            alt="Gemini AI"
+            width={20}
+            height={20}
+            className="h-10 w-10"
+          />
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-6xl mx-auto">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-7xl mt-6 mx-auto">
           {[
             { number: "500+", label: "Legal Documents" },
             { number: "50+", label: "Expert Lawyers" },
