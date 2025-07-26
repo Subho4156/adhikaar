@@ -1,4 +1,5 @@
 "use client";
+
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
@@ -41,20 +42,16 @@ const AuthForm = () => {
   const { session, loading, login, register } = useAuth();
 
   useEffect(() => {
-  if (loading) return;
-  if (!session?.user) return;
+    if (!loading && session?.user) {
+      //console.log("Session detected, checking VKYC status...");
 
-  if (redirecting) return; // prevent loop
-
-  setRedirecting(true); // mark as redirecting
-
-  if (session.user.vkyc_completed) {
-    router.push("/");
-  } else {
-    router.push("/vkyc");
-  }
-}, [session, loading, redirecting, router]);
-
+      if (session.user.vkyc_completed) {
+        router.push("/");
+      } else {
+        router.push("/vkyc");
+      }
+    }
+  }, [session, loading, router]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData((prev) => ({
@@ -96,7 +93,6 @@ const AuthForm = () => {
         });
       }
     } catch (error) {
-      //console.error("Unexpected sign-in error:", error);
       toast({
         title: "Error",
         description: "An unexpected error occurred",
@@ -146,7 +142,6 @@ const AuthForm = () => {
   }
 }
     } catch (error) {
-      //console.error("Registration error:", error);
       toast({
         title: "Error",
         description: "An unexpected error occurred",

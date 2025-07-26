@@ -59,7 +59,7 @@ export const initSocket = (server: HTTPServer): Server => {
             addTrailingSlash: false,
             cors: {
                 origin: process.env.NODE_ENV === 'production'
-                    ? ['https://your-domain.com']
+                    ? ['https://adhikaar-io.vercel.app']
                     : ['http://localhost:3000'],
                 methods: ['GET', 'POST']
             }
