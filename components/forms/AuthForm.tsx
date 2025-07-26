@@ -42,7 +42,7 @@ const AuthForm = () => {
 
   useEffect(() => {
     if (!loading && session?.user) {
-      console.log("Session detected, checking VKYC status...");
+      // console.log("Session detected, checking VKYC status...");
 
       if (session.user.vkyc_completed) {
         router.push("/");
@@ -92,7 +92,7 @@ const AuthForm = () => {
         });
       }
     } catch (error) {
-      console.error("Unexpected sign-in error:", error);
+      // console.error("Unexpected sign-in error:", error);
       toast({
         title: "Error",
         description: "An unexpected error occurred",
@@ -136,7 +136,7 @@ const AuthForm = () => {
         });
       }
     } catch (error) {
-      console.error("Registration error:", error);
+      // console.error("Registration error:", error);
       toast({
         title: "Error",
         description: "An unexpected error occurred",

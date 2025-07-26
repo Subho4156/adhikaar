@@ -51,14 +51,14 @@ export async function middleware(request: NextRequest) {
 
       console.log("Token validated successfully");
     } catch (error) {
-      console.log("Token validation failed:", error);
+      // console.log("Token validation failed:", error);
       const response = NextResponse.redirect(new URL("/auth", request.url));
       response.cookies.delete("auth-token");
       return response;
     }
   }
 
-  console.log("Allowing request to proceed");
+  // console.log("Allowing request to proceed");
   return NextResponse.next();
 }
 

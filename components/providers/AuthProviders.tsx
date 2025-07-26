@@ -29,14 +29,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
     const checkSession = async () => {
         try {
-            console.log('Checking session...');
+            // console.log('Checking session...');
             const response = await fetch('/api/auth/session', {
                 credentials: 'include',
             });
 
             if (response.ok) {
                 const data = await response.json();
-                console.log('Session data:', data);
+                // console.log('Session data:', data);
                 if (data.session) {
                     setSession(data.session);
                 } else {
@@ -71,7 +71,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
             const data = await response.json();
 
             if (response.ok && data.session) {
-                console.log('Login successful, session:', data.session);
+                // console.log('Login successful, session:', data.session);
                 setSession(data.session);
                 return { success: true };
             } else {
@@ -97,7 +97,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
             const data = await response.json();
 
             if (response.ok && data.session) {
-                console.log('Registration successful, session:', data.session);
+                // console.log('Registration successful, session:', data.session);
                 setSession(data.session);
                 return { success: true };
             } else {
