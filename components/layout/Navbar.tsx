@@ -46,7 +46,7 @@ const Navbar = () => {
             setProfile(profileData);
           }
         } catch (error) {
-          console.error("Error fetching profile:", error);
+          //console.error("Error fetching profile:", error);
         }
       } else {
         setProfile(null);
@@ -67,7 +67,7 @@ const Navbar = () => {
         description: "You have been successfully logged out.",
       });
     } catch (error) {
-      console.error("Logout error:", error);
+      //console.error("Logout error:", error);
       toast({
         title: "Error",
         description: "Failed to sign out",

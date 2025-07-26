@@ -80,7 +80,7 @@ export async function GET() {
             vkyc_status: vkycStatus
         })
     } catch (error) {
-        console.error('VKYC status check error:', error)
+        //console.error('VKYC status check error:', error)
         return NextResponse.json({
             error: 'Failed to check VKYC status',
             details: error instanceof Error ? error.message : 'Unknown error'

@@ -103,7 +103,7 @@ const AIChatbot = () => {
           ]);
         }
       } catch (error) {
-        console.error("Auth check error:", error);
+        //console.error("Auth check error:", error);
         router.push("/auth");
       }
     };
@@ -189,7 +189,7 @@ const AIChatbot = () => {
 
       setMessages((prev) => [...prev, assistantMessage]);
     } catch (error) {
-      console.error("Error calling Gemini API:", error);
+      //console.error("Error calling Gemini API:", error);
       toast({
         title: "Error",
         description:

@@ -16,7 +16,7 @@ export async function POST(req: NextRequest) {
         // Extract text from PDF
         let documentText = '';
         try {
-            console.log('Processing PDF file for translation:', fileName);
+            //console.log('Processing PDF file for translation:', fileName);
 
             // Convert base64 to ArrayBuffer
             const binaryString = atob(fileContent);
@@ -30,7 +30,7 @@ export async function POST(req: NextRequest) {
                 throw new Error('Empty PDF file received');
             }
 
-            console.log('PDF size:', arrayBuffer.byteLength, 'bytes');
+            //console.log('PDF size:', arrayBuffer.byteLength, 'bytes');
 
             // Check PDF header
             const header = new Uint8Array(arrayBuffer.slice(0, 5));
@@ -40,29 +40,29 @@ export async function POST(req: NextRequest) {
             }
 
             // Try simple extraction first
-            console.log('Attempting simple PDF extraction...');
+            //console.log('Attempting simple PDF extraction...');
             documentText = await extractPDFText(arrayBuffer);
 
             // If simple extraction didn't work well, try advanced method
             if (!documentText || documentText.length < 50 || documentText.includes('No readable text found')) {
-                console.log('Simple extraction failed, trying advanced method...');
+                //console.log('Simple extraction failed, trying advanced method...');
                 try {
                     documentText = await extractPDFTextAdvanced(arrayBuffer);
                 } catch (advancedError) {
-                    console.warn('Advanced extraction also failed:', advancedError);
+                    //console.warn('Advanced extraction also failed:', advancedError);
                     // Keep the simple extraction result
                 }
             }
 
-            console.log('Final extracted text length:', documentText.length);
-            console.log('Text preview:', documentText.substring(0, 200) + '...');
+            //console.log('Final extracted text length:', documentText.length);
+            //console.log('Text preview:', documentText.substring(0, 200) + '...');
 
             if (!documentText || documentText.trim().length < 10) {
                 throw new Error('No readable text found in the PDF. This might be a scanned document or image-based PDF that requires OCR.');
             }
 
         } catch (extractError: any) {
-            console.error('PDF extraction error:', extractError);
+            //console.error('PDF extraction error:', extractError);
             return NextResponse.json(
                 { error: `Failed to process PDF: ${extractError.message}` },
                 { status: 400 }
@@ -132,7 +132,7 @@ Ensure the translation is accurate, professional, and legally sound for ${target
                 });
 
             } catch (parseError) {
-                console.error('JSON parsing error:', parseError);
+                //console.error('JSON parsing error:', parseError);
 
                 return NextResponse.json({
                     originalLanguage: 'Auto-detected',
@@ -141,7 +141,7 @@ Ensure the translation is accurate, professional, and legally sound for ${target
             }
 
         } catch (aiError: any) {
-            console.error('AI translation error:', aiError);
+            //console.error('AI translation error:', aiError);
             return NextResponse.json(
                 { error: 'Failed to translate document with AI. Please check your API key and try again.' },
                 { status: 500 }
@@ -149,7 +149,7 @@ Ensure the translation is accurate, professional, and legally sound for ${target
         }
 
     } catch (error: any) {
-        console.error('Document translation error:', error);
+        //console.error('Document translation error:', error);
         return NextResponse.json(
             { error: 'Failed to translate document. Please try again.' },
             { status: 500 }

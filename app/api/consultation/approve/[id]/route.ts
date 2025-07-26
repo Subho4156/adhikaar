@@ -45,7 +45,7 @@ export async function PUT(
         });
 
     } catch (error) {
-        console.error('Approve request error:', error);
+        //console.error('Approve request error:', error);
         return NextResponse.json(
             { error: 'Failed to approve consultation request' },
             { status: 500 }

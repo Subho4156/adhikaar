@@ -155,7 +155,7 @@ const DocumentProcessor = () => {
           setShowApiKeyInput(false);
         }
       } catch (error) {
-        console.error("Error checking stored API key:", error);
+        //console.error("Error checking stored API key:", error);
       }
     };
 
@@ -247,7 +247,7 @@ const DocumentProcessor = () => {
         throw new Error(data.error || "Analysis failed");
       }
     } catch (error) {
-      console.error("Analysis error:", error);
+      //console.error("Analysis error:", error);
       return null;
     }
   };

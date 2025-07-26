@@ -154,7 +154,7 @@ const PublishReport = () => {
 
                 await fetchReports();
             } catch (error) {
-                console.error('Auth check error:', error);
+                //console.error('Auth check error:', error);
                 router.push('/auth');
             }
         };
@@ -172,11 +172,11 @@ const PublishReport = () => {
                 const data = await response.json();
                 setReports(data.reports || []);
             } else {
-                console.warn('Unable to fetch reports:', response.status);
+                //console.warn('Unable to fetch reports:', response.status);
                 setReports([]);
             }
         } catch (error) {
-            console.error('Error fetching reports:', error);
+            //console.error('Error fetching reports:', error);
             setReports([]);
         }
     };
@@ -219,7 +219,7 @@ const PublishReport = () => {
                 throw new Error(data.error || 'Upload failed');
             }
         } catch (error) {
-            console.error('Upload error:', error);
+            //console.error('Upload error:', error);
             setUploadProgress(0);
             return null;
         } finally {
@@ -291,7 +291,7 @@ const PublishReport = () => {
             await fetchReports();
 
         } catch (error: any) {
-            console.error('Report publishing error:', error);
+            //console.error('Report publishing error:', error);
             toast({
                 title: "Error",
                 description: error.message || "Failed to publish report. Please try again.",
@@ -326,7 +326,7 @@ const PublishReport = () => {
 
             await fetchReports();
         } catch (error: any) {
-            console.error('Error deleting report:', error);
+            //console.error('Error deleting report:', error);
             toast({
                 title: "Error",
                 description: error.message || "Failed to delete report. Please try again.",

@@ -53,7 +53,7 @@ export async function GET(req: NextRequest) {
         return NextResponse.json({ session });
 
     } catch (error) {
-        console.error('Session verification error:', error);
+        //console.error('Session verification error:', error);
         return NextResponse.json({ session: null });
     }
 }

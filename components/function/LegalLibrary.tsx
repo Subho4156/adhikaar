@@ -79,7 +79,7 @@ const LegalLibrary = () => {
         setDocuments(data.reports || []);
       } else {
         // Handle error response gracefully
-        console.warn("API returned error status:", response.status);
+        //console.warn("API returned error status:", response.status);
         setDocuments([]);
 
         if (response.status >= 500) {
@@ -92,7 +92,7 @@ const LegalLibrary = () => {
         }
       }
     } catch (error) {
-      console.error("Error fetching documents:", error);
+      //console.error("Error fetching documents:", error);
       setDocuments([]);
 
       toast({

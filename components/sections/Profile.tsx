@@ -136,7 +136,7 @@ const Profile = () => {
           router.push("/create-profile");
         }
       } catch (error) {
-        console.error("Profile fetch error:", error);
+        //console.error("Profile fetch error:", error);
         toast({
           title: "Error",
           description: "Failed to load profile data.",
@@ -174,7 +174,7 @@ const Profile = () => {
         description: "Profile updated successfully!",
       });
     } catch (error: unknown) {
-      console.error("Profile update error:", error);
+      //console.error("Profile update error:", error);
       toast({
         title: "Error",
         description:
@@ -209,7 +209,7 @@ const Profile = () => {
 
       window.location.href = "/";
     } catch (error: unknown) {
-      console.error("Account deletion error:", error);
+      //console.error("Account deletion error:", error);
       toast({
         title: "Error",
         description: "Failed to delete account. Please contact support.",

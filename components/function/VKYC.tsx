@@ -136,7 +136,7 @@ const CameraModal = ({
         };
       }
     } catch (err) {
-      console.error("Camera error:", err);
+      //console.error("Camera error:", err);
       setError("Failed to access camera. Please check permissions.");
       setIsLoading(false);
     }
@@ -383,7 +383,7 @@ const VKYC = () => {
           basicForm.reset(baseData);
         }
       } catch (error) {
-        console.error("Auth check error:", error);
+        //console.error("Auth check error:", error);
         router.push("/auth");
       }
     };
@@ -415,7 +415,7 @@ const VKYC = () => {
         throw new Error(data.error || "Upload failed");
       }
     } catch (error) {
-      console.error("Upload error:", error);
+      //console.error("Upload error:", error);
       return null;
     }
   };
@@ -576,7 +576,7 @@ const VKYC = () => {
         throw new Error(data.error || "VKYC completion failed");
       }
     } catch (error: unknown) {
-      console.error("VKYC submission error:", error);
+      //console.error("VKYC submission error:", error);
       toast({
         title: "Error",
         description:
