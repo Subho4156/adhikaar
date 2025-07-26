@@ -143,10 +143,10 @@ const CameraModal = ({
   };
 
   const stopCamera = () => {
-    console.log("Stopping camera...");
+    // console.log("Stopping camera...");
     if (stream) {
       stream.getTracks().forEach((track) => {
-        console.log("Stopping track:", track.kind);
+        // console.log("Stopping track:", track.kind);
         track.stop();
       });
       setStream(null);

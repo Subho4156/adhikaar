@@ -46,10 +46,10 @@ const AuthForm = () => {
       console.log("Session detected, checking VKYC status...");
 
       if (session.user.vkyc_completed) {
-        console.log("VKYC completed, redirecting to dashboard");
+        // console.log("VKYC completed, redirecting to dashboard");
         router.push("/");
       } else {
-        console.log("VKYC not completed, redirecting to VKYC");
+        // console.log("VKYC not completed, redirecting to VKYC");
         router.push("/vkyc");
       }
     }
