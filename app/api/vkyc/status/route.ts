@@ -19,6 +19,7 @@ export async function GET() {
 
         const decoded = jwt.verify(token, jwtSecret) as { userId: string }
 
+        // Fetch user's VKYC status
         const profile = await prisma.profile.findUnique({
             where: { id: decoded.userId },
             select: {
@@ -47,6 +48,7 @@ export async function GET() {
             return NextResponse.json({ error: 'Profile not found' }, { status: 404 })
         }
 
+        // Check if profile has incomplete required fields
         const requiredFields = ['first_name', 'last_name', 'phone']
         const missingFields = requiredFields.filter(field =>
             !profile[field as keyof typeof profile] ||

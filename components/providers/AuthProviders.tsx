@@ -29,14 +29,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
     const checkSession = async () => {
         try {
-            console.log('Checking session...');
+            // console.log('Checking session...');
             const response = await fetch('/api/auth/session', {
                 credentials: 'include',
             });
 
             if (response.ok) {
                 const data = await response.json();
-                console.log('Session data:', data);
+                // console.log('Session data:', data);
                 if (data.session) {
                     setSession(data.session);
                 } else {
@@ -46,7 +46,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
                 setSession(null);
             }
         } catch (error) {
-            console.error('Session check error:', error);
+            // console.error('Session check error:', error);
             setSession(null);
         } finally {
             setLoading(false);
@@ -71,14 +71,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
             const data = await response.json();
 
             if (response.ok && data.session) {
-                console.log('Login successful, session:', data.session);
+                // console.log('Login successful, session:', data.session);
                 setSession(data.session);
                 return { success: true };
             } else {
                 return { success: false, error: data.error || 'Login failed' };
             }
         } catch (error) {
-            console.error('Login error:', error);
+            // console.error('Login error:', error);
             return { success: false, error: 'An unexpected error occurred' };
         }
     };
@@ -97,14 +97,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
             const data = await response.json();
 
             if (response.ok && data.session) {
-                console.log('Registration successful, session:', data.session);
+                // console.log('Registration successful, session:', data.session);
                 setSession(data.session);
                 return { success: true };
             } else {
                 return { success: false, error: data.error || 'Registration failed' };
             }
         } catch (error) {
-            console.error('Registration error:', error);
+            // console.error('Registration error:', error);
             return { success: false, error: 'An unexpected error occurred' };
         }
     };
@@ -116,7 +116,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
                 credentials: 'include',
             });
         } catch (error) {
-            console.error('Logout error:', error);
+            // console.error('Logout error:', error);
         } finally {
             setSession(null);
         }

@@ -15,6 +15,7 @@ export async function POST(req: NextRequest) {
         const genAI = new GoogleGenerativeAI(apiKey);
         const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
+        // Document type specific prompts
         const documentTemplates = {
             contract: 'a comprehensive contract agreement',
             nda: 'a non-disclosure agreement (NDA)',
@@ -68,6 +69,7 @@ Generate a complete, ready-to-use legal document that follows industry standards
         const response = result.response;
         const content = response.text();
 
+        // Clean up the content
         const cleanContent = content
             .replace(/```/g, '')
             .replace(/^\s*markdown\s*/i, '')
