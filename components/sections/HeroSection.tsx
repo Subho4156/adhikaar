@@ -1,6 +1,7 @@
 "use client";
 import Image from "next/image";
 import { Scale } from "lucide-react";
+import { NumberTicker } from "@/components/magicui/number-ticker";
 
 const HeroSection = () => {
   return (
@@ -50,14 +51,17 @@ const HeroSection = () => {
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-6xl mx-auto">
           {[
-            { number: "10,000+", label: "Legal Documents" },
-            { number: "500+", label: "Expert Lawyers" },
-            { number: "50,000+", label: "Cases Resolved" },
-            { number: "24/7", label: "AI Support" },
+            { number: "500+", label: "Legal Documents" },
+            { number: "50+", label: "Expert Lawyers" },
+            { number: "1000+", label: "Cases Resolved" },
+            { number: "24", label: "AI Support" },
           ].map((stat) => (
             <div key={stat.label} className="text-center">
               <div className="text-lg sm:text-2xl font-bold text-primary mb-2">
-                {stat.number}
+                <NumberTicker
+                  value={parseInt(stat.number.replace(/[^\d]/g, ""))}
+                />
+                {stat.number.includes("+") && "+"}
               </div>
               <div className="text-muted-foreground">{stat.label}</div>
             </div>
