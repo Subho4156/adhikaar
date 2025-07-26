@@ -1,4 +1,5 @@
 "use client";
+
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
@@ -11,7 +12,8 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { TabsContent } from "@radix-ui/react-tabs";
 import {
   Select,
   SelectContent,
@@ -41,8 +43,6 @@ const AuthForm = () => {
 
   useEffect(() => {
     if (!loading && session?.user) {
-      //console.log("Session detected, checking VKYC status...");
-
       if (session.user.vkyc_completed) {
         router.push("/");
       } else {
@@ -91,7 +91,6 @@ const AuthForm = () => {
         });
       }
     } catch (error) {
-      //console.error("Unexpected sign-in error:", error);
       toast({
         title: "Error",
         description: "An unexpected error occurred",
@@ -135,7 +134,6 @@ const AuthForm = () => {
         });
       }
     } catch (error) {
-      //console.error("Registration error:", error);
       toast({
         title: "Error",
         description: "An unexpected error occurred",
