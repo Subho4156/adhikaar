@@ -13,6 +13,7 @@ import {
   LogOut,
   Settings,
   UserCircle,
+  Video,
 } from "lucide-react";
 import Link from "next/link";
 import { useRouter, usePathname } from "next/navigation";
@@ -88,6 +89,7 @@ const Navbar = () => {
       icon: <FileText className="w-4 h-4" />,
       requiresAuth: true,
     },
+    { name: 'Video Consult', href: '/consult', icon: <Video className="w-4 h-4" />, requiresAuth: true },
     {
       name: "Document Processor",
       href: "/document-processor",
