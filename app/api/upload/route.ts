@@ -126,7 +126,7 @@ export async function POST(request: NextRequest) {
                     },
                     (error, result) => {
                         if (error) {
-                            console.error('Cloudinary upload stream error:', error);
+                            // console.error('Cloudinary upload stream error:', error);
                             reject(error);
                         } else {
                             resolve(result);
@@ -168,14 +168,14 @@ export async function POST(request: NextRequest) {
                 ]
             });
 
-            console.log('Upload successful:', {
-                public_id: uploadResponse.public_id,
-                pdf_url: pdfUrl,
-                preview_url: previewUrl,
-                thumbnail_url: thumbnailUrl,
-                file_size: uploadResponse.bytes,
-                format: uploadResponse.format
-            });
+            // console.log('Upload successful:', {
+            //     public_id: uploadResponse.public_id,
+            //     pdf_url: pdfUrl,
+            //     preview_url: previewUrl,
+            //     thumbnail_url: thumbnailUrl,
+            //     file_size: uploadResponse.bytes,
+            //     format: uploadResponse.format
+            // });
 
             return NextResponse.json({
                 url: pdfUrl,
@@ -189,13 +189,13 @@ export async function POST(request: NextRequest) {
             });
 
         } catch (cloudinaryError: any) {
-            console.error('Cloudinary upload error:', cloudinaryError);
+            // console.error('Cloudinary upload error:', cloudinaryError);
 
             // Handle untrusted account error specifically
             if (cloudinaryError.message?.includes('untrusted') || cloudinaryError.error?.message?.includes('untrusted')) {
                 // Try fallback method for untrusted accounts
                 try {
-                    console.log('Retrying with fallback method for untrusted account...');
+                   // console.log('Retrying with fallback method for untrusted account...');
 
                     const base64 = buffer.toString('base64');
                     const dataURI = `data:application/pdf;base64,${base64}`;
@@ -223,7 +223,7 @@ export async function POST(request: NextRequest) {
                     });
 
                 } catch (fallbackError) {
-                    console.error('Fallback upload also failed:', fallbackError);
+                    //console.error('Fallback upload also failed:', fallbackError);
                     return NextResponse.json(
                         {
                             error: 'Your Cloudinary account needs verification. Please contact Cloudinary support to enable PDF processing, or use a verified account.',
@@ -241,7 +241,7 @@ export async function POST(request: NextRequest) {
         }
 
     } catch (error: any) {
-        console.error('Upload error:', error);
+        //console.error('Upload error:', error);
         return NextResponse.json(
             { error: 'Internal server error. Please try again.' },
             { status: 500 }

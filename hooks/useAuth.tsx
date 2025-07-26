@@ -89,7 +89,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
     const login = async (email: string, password: string) => {
         try {
-            console.log('🔐 Attempting login for:', email);
+            // console.log('🔐 Attempting login for:', email);
             const response = await fetch('/api/auth/login', {
                 method: 'POST',
                 headers: {
@@ -102,39 +102,39 @@ export function AuthProvider({ children }: { children: ReactNode }) {
             // console.log('📡 Login response status:', response.status);
 
             if (!response.ok) {
-                console.error('❌ Login failed:', response.status, response.statusText);
+                // console.error('❌ Login failed:', response.status, response.statusText);
                 const text = await response.text();
-                console.error('📄 Login error response:', text.substring(0, 500));
+                // console.error('📄 Login error response:', text.substring(0, 500));
                 return { success: false, error: 'Login request failed' };
             }
 
             const contentType = response.headers.get('content-type');
             if (!contentType || !contentType.includes('application/json')) {
-                console.error('❌ Login response is not JSON:', contentType);
+                // console.error('❌ Login response is not JSON:', contentType);
                 const text = await response.text();
-                console.error('📄 Login response text:', text.substring(0, 500));
+                // console.error('📄 Login response text:', text.substring(0, 500));
                 return { success: false, error: 'Invalid response format' };
             }
 
             const data = await response.json();
-            console.log('✅ Login response data:', data);
+            // console.log('✅ Login response data:', data);
 
             if (data.session) {
-                console.log('🎉 Login successful, setting session');
+                // console.log('🎉 Login successful, setting session');
                 setSession(data.session);
                 return { success: true };
             } else {
                 return { success: false, error: data.error || 'Login failed' };
             }
         } catch (error) {
-            console.error('💥 Login error:', error);
+            // console.error('💥 Login error:', error);
             return { success: false, error: 'An unexpected error occurred' };
         }
     };
 
     const register = async (userData: any) => {
         try {
-            console.log('📝 Attempting registration for:', userData.email);
+            // console.log('📝 Attempting registration for:', userData.email);
             const response = await fetch('/api/auth/register', {
                 method: 'POST',
                 headers: {
@@ -144,49 +144,49 @@ export function AuthProvider({ children }: { children: ReactNode }) {
                 credentials: 'include',
             });
 
-            console.log('📡 Register response status:', response.status);
+            // console.log('📡 Register response status:', response.status);
 
             if (!response.ok) {
-                console.error('❌ Registration failed:', response.status, response.statusText);
+                // console.error('❌ Registration failed:', response.status, response.statusText);
                 const text = await response.text();
-                console.error('📄 Registration error response:', text.substring(0, 500));
+                // console.error('📄 Registration error response:', text.substring(0, 500));
                 return { success: false, error: 'Registration request failed' };
             }
 
             const contentType = response.headers.get('content-type');
             if (!contentType || !contentType.includes('application/json')) {
-                console.error('❌ Registration response is not JSON:', contentType);
+                // console.error('❌ Registration response is not JSON:', contentType);
                 const text = await response.text();
-                console.error('📄 Registration response text:', text.substring(0, 500));
+                // console.error('📄 Registration response text:', text.substring(0, 500));
                 return { success: false, error: 'Invalid response format' };
             }
 
             const data = await response.json();
-            console.log('✅ Registration response data:', data);
+            // console.log('✅ Registration response data:', data);
 
             if (data.session) {
-                console.log('🎉 Registration successful, setting session');
+                // console.log('🎉 Registration successful, setting session');
                 setSession(data.session);
                 return { success: true };
             } else {
                 return { success: false, error: data.error || 'Registration failed' };
             }
         } catch (error) {
-            console.error('💥 Registration error:', error);
+            // console.error('💥 Registration error:', error);
             return { success: false, error: 'An unexpected error occurred' };
         }
     };
 
     const logout = async () => {
         try {
-            console.log('🚪 Logging out...');
+            // console.log('🚪 Logging out...');
             await fetch('/api/auth/logout', {
                 method: 'POST',
                 credentials: 'include',
             });
-            console.log('✅ Logout successful');
+            // console.log('✅ Logout successful');
         } catch (error) {
-            console.error('💥 Logout error:', error);
+            // console.error('💥 Logout error:', error);
         } finally {
             setSession(null);
         }

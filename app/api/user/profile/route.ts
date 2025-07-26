@@ -47,7 +47,7 @@ export async function GET() {
             profile
         })
     } catch (error) {
-        console.error('Profile fetch error:', error)
+        // console.error('Profile fetch error:', error)
         return NextResponse.json({
             error: 'Failed to fetch profile',
             details: error instanceof Error ? error.message : 'Unknown error'
@@ -72,8 +72,8 @@ export async function PUT(req: NextRequest) {
         const decoded = jwt.verify(token, jwtSecret) as { userId: string }
         const data = await req.json()
 
-        console.log('User profile update request for user:', decoded.userId)
-        console.log('Update data received:', JSON.stringify(data, null, 2))
+        // console.log('User profile update request for user:', decoded.userId)
+        // console.log('Update data received:', JSON.stringify(data, null, 2))
 
         // Map camelCase fields from frontend to snake_case for database
         const fieldMapping: { [key: string]: string } = {
@@ -93,7 +93,7 @@ export async function PUT(req: NextRequest) {
             mappedData[mappedKey] = data[key];
         });
 
-        console.log('Mapped data for database:', JSON.stringify(mappedData, null, 2))
+        // console.log('Mapped data for database:', JSON.stringify(mappedData, null, 2))
 
         // Validate role if being updated
         if (mappedData.role) {
@@ -113,7 +113,7 @@ export async function PUT(req: NextRequest) {
 
             // Validate the role
             if (!Object.values(UserRole).includes(mappedData.role as UserRole)) {
-                console.log('Error: Invalid role provided:', mappedData.role)
+                // console.log('Error: Invalid role provided:', mappedData.role)
                 return NextResponse.json(
                     { error: `Invalid role provided: ${mappedData.role}` },
                     { status: 400 }
@@ -138,7 +138,7 @@ export async function PUT(req: NextRequest) {
             return mappedData[field] !== undefined && mappedData[field] !== existingProfile[fieldKey]
         })
 
-        console.log('Is significant update:', isSignificantUpdate)
+        // console.log('Is significant update:', isSignificantUpdate)
 
         // Handle password update if provided
         const updateData = { ...mappedData }
@@ -168,7 +168,7 @@ export async function PUT(req: NextRequest) {
 
         // If VKYC was reset due to significant changes, also clear VKYC documents
         if (isSignificantUpdate && existingProfile.vkyc_completed) {
-            console.log('Clearing VKYC documents due to significant profile update')
+            // console.log('Clearing VKYC documents due to significant profile update')
             await prisma.vkycDocument.deleteMany({
                 where: { user_id: decoded.userId }
             })
@@ -218,10 +218,10 @@ export async function PUT(req: NextRequest) {
             requires_vkyc: isSignificantUpdate
         }
 
-        console.log('User profile update successful:', response.message)
+        // console.log('User profile update successful:', response.message)
         return NextResponse.json(response)
     } catch (error) {
-        console.error('Profile update error:', error)
+        // console.error('Profile update error:', error)
         return NextResponse.json({
             error: 'Failed to update profile',
             details: error instanceof Error ? error.message : 'Unknown error'
@@ -320,7 +320,7 @@ export async function DELETE() {
 
         return response
     } catch (error) {
-        console.error('Account deletion error:', error)
+        // console.error('Account deletion error:', error)
         return NextResponse.json({
             error: 'Failed to delete account',
             details: error instanceof Error ? error.message : 'Unknown error'
