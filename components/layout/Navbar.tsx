@@ -22,6 +22,7 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
+  DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
 import { useToast } from "@/hooks/use-toast";
 import { useAuth } from "@/hooks/useAuth";
@@ -146,7 +147,7 @@ const Navbar = () => {
 
           <div className="hidden md:flex items-center space-x-4">
             {session ? (
-              <DropdownMenu>
+              <DropdownMenu >
                 <DropdownMenuTrigger asChild>
                   <Button
                     variant="ghost"
@@ -159,17 +160,17 @@ const Navbar = () => {
                     </span>
                   </Button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent align="end" className="w-56">
-                  <DropdownMenuItem className="cursor-pointer" asChild>
+                <DropdownMenuContent align="end" className="w-56 rounded-none">
+                  <DropdownMenuItem className="cursor-pointer rounded-none" asChild>
                     <Link href="/profile" className="flex items-center">
-                      <User className="w-4 h-4 mr-2" />
+                      <User className="w-4 h-4 mr-2 " />
                       View Profile
                     </Link>
                   </DropdownMenuItem>
-
+                    <DropdownMenuSeparator className="my-1 mx-1" />
                   <DropdownMenuItem
                     onClick={handleLogout}
-                    className="text-red-600 cursor-pointer"
+                    className="text-red-600 cursor-pointer  rounded-none"
                   >
                     <LogOut className="w-4 h-4 mr-2" />
                     Logout
