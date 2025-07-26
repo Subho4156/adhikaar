@@ -1773,10 +1773,10 @@ const AdvocateDashboard: React.FC<AdvocateDashboardProps> = ({
 }) => {
     if (!profile) {
         return (
-            <Card>
+            <Card className='rounded-none'>
                 <CardHeader>
-                    <CardTitle>Welcome to Advocate Dashboard</CardTitle>
-                    <CardDescription>Please create your profile to start receiving consultation requests.</CardDescription>
+                    <CardTitle className='text-primary'>Welcome to Advocate Dashboard</CardTitle>
+                    <CardDescription className='text-muted-foreground'>Please create your profile to start receiving consultation requests.</CardDescription>
                 </CardHeader>
                 <CardContent>
                     <Dialog open={isProfileDialogOpen} onOpenChange={setIsProfileDialogOpen}>
