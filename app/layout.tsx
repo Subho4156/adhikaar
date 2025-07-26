@@ -11,7 +11,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Vidhika",
+  title: "Adhikaar",
   description: "Access AI-powered legal assistance and consultation services",
 };
 

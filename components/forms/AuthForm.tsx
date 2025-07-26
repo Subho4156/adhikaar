@@ -45,10 +45,8 @@ const AuthForm = () => {
       console.log("Session detected, checking VKYC status...");
 
       if (session.user.vkyc_completed) {
-        // console.log("VKYC completed, redirecting to dashboard");
         router.push("/");
       } else {
-        // console.log("VKYC not completed, redirecting to VKYC");
         router.push("/vkyc");
       }
     }
@@ -166,9 +164,11 @@ const AuthForm = () => {
     <div className="min-h-screen flex items-center justify-center px-4">
       <Card className="w-full bg-transparent max-w-md rounded-none">
         <CardHeader className="text-center">
+          <div className="flex justify-center">
             <div className="border p-2 rounded-none">
               <Scale className="w-6 h-6" />
             </div>
+          </div>
           <CardTitle>Welcome</CardTitle>
           <CardDescription>Sign in to access legal services</CardDescription>
         </CardHeader>

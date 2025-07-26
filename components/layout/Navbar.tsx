@@ -189,7 +189,7 @@ const Navbar = () => {
                 </Button>
                 <Button
                   asChild
-                  className="px-4 py-2 rounded-none text-sm font-medium transition-all duration-200 transform hover:scale-105"
+                  className="px-6 py-2 rounded-none text-sm font-medium transition-all duration-200 transform hover:scale-105"
                 >
                   <Link href="/auth">Get Started</Link>
                 </Button>
