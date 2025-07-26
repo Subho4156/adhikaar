@@ -13,10 +13,12 @@ export async function POST(req: NextRequest) {
             );
         }
 
+        // Extract text from PDF
         let documentText = '';
         try {
             console.log('Processing PDF file:', fileName);
 
+            // Convert base64 to ArrayBuffer
             const binaryString = atob(fileContent);
             const bytes = new Uint8Array(binaryString.length);
             for (let i = 0; i < binaryString.length; i++) {
@@ -30,21 +32,25 @@ export async function POST(req: NextRequest) {
 
             console.log('PDF size:', arrayBuffer.byteLength, 'bytes');
 
+            // Check PDF header
             const header = new Uint8Array(arrayBuffer.slice(0, 5));
             const pdfHeader = String.fromCharCode(...header);
             if (!pdfHeader.startsWith('%PDF')) {
                 throw new Error('File is not a valid PDF document');
             }
 
+            // Try simple extraction first
             console.log('Attempting simple PDF extraction...');
             documentText = await extractPDFText(arrayBuffer);
 
+            // If simple extraction didn't work well, try advanced method
             if (!documentText || documentText.length < 50 || documentText.includes('No readable text found')) {
                 console.log('Simple extraction failed, trying advanced method...');
                 try {
                     documentText = await extractPDFTextAdvanced(arrayBuffer);
                 } catch (advancedError) {
                     console.warn('Advanced extraction also failed:', advancedError);
+                    // Keep the simple extraction result
                 }
             }
 
@@ -63,6 +69,7 @@ export async function POST(req: NextRequest) {
             );
         }
 
+        // Analyze with AI
         try {
             const genAI = new GoogleGenerativeAI(apiKey);
             const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
@@ -128,6 +135,7 @@ Ensure your analysis is thorough, professional, and directly related to the docu
             } catch (parseError) {
                 console.error('JSON parsing error:', parseError);
 
+                // Fallback analysis
                 return NextResponse.json({
                     analysis: {
                         documentType: 'Legal Document',

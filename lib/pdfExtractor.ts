@@ -1,17 +1,21 @@
+// Simple PDF text extraction without external dependencies
 export async function extractPDFText(arrayBuffer: ArrayBuffer): Promise<string> {
     try {
         const data = new Uint8Array(arrayBuffer);
         const pdfString = Array.from(data, byte => String.fromCharCode(byte)).join('');
 
+        // Method 1: Extract text from PDF streams
         let extractedText = '';
 
+        // Look for text objects in PDF
         const textRegex = /BT\s*(.*?)\s*ET/g;
         const textMatches = pdfString.match(textRegex) || [];
 
         for (const match of textMatches) {
+            // Extract text from within parentheses
             const textContent = match.match(/\((.*?)\)/g) || [];
             for (const text of textContent) {
-                const cleanText = text.slice(1, -1)
+                const cleanText = text.slice(1, -1) // Remove parentheses
                     .replace(/\\n/g, '\n')
                     .replace(/\\r/g, '\r')
                     .replace(/\\t/g, '\t')
@@ -22,6 +26,7 @@ export async function extractPDFText(arrayBuffer: ArrayBuffer): Promise<string> 
             }
         }
 
+        // Method 2: Look for Tj and TJ operators
         if (extractedText.length < 50) {
             const tjRegex = /\((.*?)\)\s*Tj/g;
             let match;
@@ -30,6 +35,7 @@ export async function extractPDFText(arrayBuffer: ArrayBuffer): Promise<string> 
             }
         }
 
+        // Method 3: Extract from font mappings and content streams
         if (extractedText.length < 50) {
             const streamRegex = /stream\s*(.*?)\s*endstream/g;
             const streams = pdfString.match(streamRegex) || [];
@@ -45,6 +51,7 @@ export async function extractPDFText(arrayBuffer: ArrayBuffer): Promise<string> 
             }
         }
 
+        // Clean up the extracted text
         extractedText = extractedText
             .replace(/\s+/g, ' ')
             .trim();
@@ -57,10 +64,12 @@ export async function extractPDFText(arrayBuffer: ArrayBuffer): Promise<string> 
     }
 }
 
+// Advanced PDF.js text extraction (fallback)
 export async function extractPDFTextAdvanced(arrayBuffer: ArrayBuffer): Promise<string> {
     try {
         const pdfjsLib = await import('pdfjs-dist');
- 
+
+        // Disable worker for server-side usage  
         pdfjsLib.GlobalWorkerOptions.workerSrc = '';
 
         const loadingTask = pdfjsLib.getDocument({

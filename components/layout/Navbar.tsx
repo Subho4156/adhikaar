@@ -14,6 +14,7 @@ import {
   Settings,
   UserCircle,
   Video,
+  ArrowRight,
 } from "lucide-react";
 import Link from "next/link";
 import { useRouter, usePathname } from "next/navigation";
@@ -122,9 +123,7 @@ const Navbar = () => {
             <div className="border p-2 rounded-none">
               <Scale className="w-6 h-6" />
             </div>
-            <span className="text-xl font-bold">
-            Adhikaar
-            </span>
+            <span className="text-xl font-bold">Adhikaar</span>
           </Link>
           <div className="hidden md:block">
             <div className="flex items-baseline space-x-6">
@@ -149,7 +148,7 @@ const Navbar = () => {
 
           <div className="hidden md:flex items-center space-x-4">
             {session ? (
-              <DropdownMenu >
+              <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button
                     variant="ghost"
@@ -163,13 +162,16 @@ const Navbar = () => {
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end" className="w-56 rounded-none">
-                  <DropdownMenuItem className="cursor-pointer rounded-none" asChild>
+                  <DropdownMenuItem
+                    className="cursor-pointer rounded-none"
+                    asChild
+                  >
                     <Link href="/profile" className="flex items-center">
                       <User className="w-4 h-4 mr-2 " />
                       View Profile
                     </Link>
                   </DropdownMenuItem>
-                    <DropdownMenuSeparator className="my-1 mx-1" />
+                  <DropdownMenuSeparator className="my-1 mx-1" />
                   <DropdownMenuItem
                     onClick={handleLogout}
                     className="text-red-600 cursor-pointer  rounded-none"
@@ -194,7 +196,10 @@ const Navbar = () => {
                   asChild
                   className="px-6 py-2 rounded-none text-sm font-medium transition-all duration-200 transform hover:scale-105"
                 >
-                  <Link href="/auth">Get Started</Link>
+                  <Link href="/auth">
+                    Get Started
+                    <ArrowRight />
+                  </Link>
                 </Button>
               </>
             )}

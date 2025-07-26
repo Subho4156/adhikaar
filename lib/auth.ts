@@ -93,6 +93,7 @@ export const authOptions: NextAuthOptions = {
     },
 };
 
+// Extend NextAuth types
 declare module 'next-auth' {
     interface User {
         role: UserRole;

@@ -8,6 +8,7 @@ export async function POST(req: NextRequest) {
     try {
         const { email, password, firstName, lastName, phone, role } = await req.json();
 
+        // Validate required fields
         if (!email || !password || !firstName || !lastName) {
             return NextResponse.json(
                 { error: 'Missing required fields' },
@@ -15,10 +16,11 @@ export async function POST(req: NextRequest) {
             );
         }
 
-        let userRole: UserRole = UserRole.REGULAR_USER; 
+        // Validate role - only allow valid UserRole enum values
+        let userRole: UserRole = UserRole.REGULAR_USER; // Default
 
         if (role) {
-
+            // Convert lowercase role to uppercase to match enum
             const roleMapping: { [key: string]: UserRole } = {
                 'regular_user': UserRole.REGULAR_USER,
                 'barrister': UserRole.BARRISTER,
@@ -26,19 +28,23 @@ export async function POST(req: NextRequest) {
                 'government_official': UserRole.GOVERNMENT_OFFICIAL
             };
 
+            // If role is lowercase, convert it
             const mappedRole = roleMapping[role.toLowerCase()];
             if (mappedRole) {
                 userRole = mappedRole;
             } else if (Object.values(UserRole).includes(role as UserRole)) {
                 userRole = role as UserRole;
             }
+            // If role is invalid, keep default REGULAR_USER
         }
 
+        // Determine KYC type and upload permissions based on role
         const professionalRoles: UserRole[] = [UserRole.BARRISTER, UserRole.LAWYER, UserRole.GOVERNMENT_OFFICIAL];
         const isProfessional = professionalRoles.includes(userRole);
         const kycType = isProfessional ? KycType.PROFESSIONAL : KycType.REGULAR;
         const canUploadReports = isProfessional;
 
+        // Check if user already exists
         const existingUser = await prisma.profile.findUnique({
             where: { email }
         });
@@ -50,8 +56,10 @@ export async function POST(req: NextRequest) {
             );
         }
 
+        // Hash password
         const hashedPassword = await bcrypt.hash(password, 12);
 
+        // Create user
         const user = await prisma.profile.create({
             data: {
                 email,
@@ -66,6 +74,7 @@ export async function POST(req: NextRequest) {
             }
         });
 
+        // Create advocate profile for professional roles
         if (isProfessional) {
             await prisma.advocateProfile.create({
                 data: {
@@ -84,10 +93,10 @@ export async function POST(req: NextRequest) {
             });
         }
 
-
+        // Create JWT token
         const jwtSecret = process.env.JWT_SECRET;
         if (!jwtSecret) {
-            console.error('JWT_SECRET not available during token creation');
+            console.error('❌ JWT_SECRET not available during token creation');
             return NextResponse.json(
                 { error: 'Server configuration error' },
                 { status: 500 }
@@ -104,6 +113,7 @@ export async function POST(req: NextRequest) {
             { expiresIn: '7d' }
         );
 
+        // Create session object
         const session = {
             user: {
                 id: user.id,
@@ -117,6 +127,7 @@ export async function POST(req: NextRequest) {
             }
         };
 
+        // Set HTTP-only cookie
         const response = NextResponse.json({
             success: true,
             session,
@@ -127,7 +138,7 @@ export async function POST(req: NextRequest) {
             httpOnly: true,
             secure: process.env.NODE_ENV === 'production',
             sameSite: 'strict',
-            maxAge: 60 * 60 * 24 * 7,
+            maxAge: 60 * 60 * 24 * 7, // 7 days
             path: '/'
         });
 
