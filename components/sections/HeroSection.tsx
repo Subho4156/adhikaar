@@ -5,7 +5,7 @@ import { NumberTicker } from "@/components/magicui/number-ticker";
 
 const HeroSection = () => {
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-black">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       <Image
         src="/background.png"
         alt="Background"
