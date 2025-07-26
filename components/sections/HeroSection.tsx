@@ -1,0 +1,71 @@
+"use client";
+import Image from "next/image";
+import { Scale } from "lucide-react";
+
+const HeroSection = () => {
+  return (
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-black">
+      <Image
+        src="/background.png"
+        alt="Background"
+        fill
+        className="absolute inset-0 object-cover opacity-18 z-0"
+      />
+
+      <div className="absolute inset-0 bg-background/10 z-10" />
+
+      <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <div className="inline-flex items-center space-x-2 bg-primary border text-background rounded-none px-4 py-1 text-sm mb-8">
+          <Scale className="w-4 h-4" />
+          <span>Powered by Advanced AI Technology</span>
+        </div>
+
+        <h1 className="text-2xl sm:text-xl lg:text-5xl font-bold mb-6">
+          <span className="block">
+            Seamless Legal Support for <br /> India Powered by AI
+          </span>
+        </h1>
+
+        <p className="text-md text-muted-foreground mb-8 max-w-3xl mx-auto leading-relaxed">
+          Your intelligent legal companion for document drafting, real-time
+          translation, case research, and secure access to verified advocates
+          across India.
+        </p>
+
+        <div className="flex flex-wrap justify-center gap-3 mb-8">
+          {[
+            "IPC Section 420",
+            "Property Law",
+            "Family Court",
+            "Corporate Law",
+          ].map((suggestion) => (
+            <button
+              key={suggestion}
+              className="px-4 py-2 bg-transparent rounded-none text-primary"
+            >
+              {suggestion}
+            </button>
+          ))}
+        </div>
+
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-6xl mx-auto">
+          {[
+            { number: "10,000+", label: "Legal Documents" },
+            { number: "500+", label: "Expert Lawyers" },
+            { number: "50,000+", label: "Cases Resolved" },
+            { number: "24/7", label: "AI Support" },
+          ].map((stat) => (
+            <div key={stat.label} className="text-center">
+              <div className="text-lg sm:text-2xl font-bold text-primary mb-2">
+                {stat.number}
+              </div>
+              <div className="text-muted-foreground">{stat.label}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default HeroSection;
