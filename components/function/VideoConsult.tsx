@@ -1602,7 +1602,7 @@ const ClientDashboard: React.FC<ClientDashboardProps> = ({
                     const isPaid = !!paidConsultation;
 
                     return (
-                        <Card key={lawyer.id} className="hover:shadow-lg transition-shadow">
+                        <Card key={lawyer.id} className="hover:shadow-lg transition-shadow rounded-none">
                             <CardHeader>
                                 <div className="flex items-start space-x-4">
                                     <Image
@@ -1625,7 +1625,7 @@ const ClientDashboard: React.FC<ClientDashboardProps> = ({
                                         <CardDescription className="text-sm">
                                             {lawyer.specialization}
                                         </CardDescription>
-                                        <div className="flex items-center space-x-4 mt-2 text-sm text-slate-600">
+                                        <div className="flex items-center space-x-4 mt-2 text-sm text-muted-foreground">
                                             <div className="flex items-center space-x-1">
                                                 <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
                                                 <span>{lawyer.rating}</span>
@@ -1640,7 +1640,7 @@ const ClientDashboard: React.FC<ClientDashboardProps> = ({
                             </CardHeader>
                             <CardContent>
                                 <div className="space-y-3 mb-4">
-                                    <div className="flex items-center space-x-2 text-sm text-slate-600">
+                                    <div className="flex items-center space-x-2 text-sm text-muted-foreground">
                                         <MapPin className="w-4 h-4" />
                                         <span>{lawyer.location}</span>
                                     </div>
@@ -1651,7 +1651,7 @@ const ClientDashboard: React.FC<ClientDashboardProps> = ({
                                             </Badge>
                                         ))}
                                     </div>
-                                    <div className="text-lg font-semibold text-sky-600">
+                                    <div className="text-lg font-semibold text-primary">
                                         ₹{lawyer.rate}/hour
                                     </div>
                                     {isPaid && (
@@ -1713,13 +1713,13 @@ const ClientDashboard: React.FC<ClientDashboardProps> = ({
             {/* Emergency Consultation */}
             <Card className="mt-8  rounded-none">
                 <CardHeader>
-                    <CardTitle className="text-red-800 ">Need Urgent Legal Help?</CardTitle>
-                    <CardDescription className="text-red-600">
+                    <CardTitle className="text-red-700 ">Need Urgent Legal Help?</CardTitle>
+                    <CardDescription className="text-muted-foreground">
                         Our emergency consultation service is available 24/7 for critical legal matters.
                     </CardDescription>
                 </CardHeader>
                 <CardContent>
-                    <Button className="bg-red-600 hover:bg-red-700">
+                    <Button className="bg-red-700 hover:bg-red-800 cursor-pointer text-primary">
                         <Phone className="w-4 h-4 mr-2" />
                         Emergency Consultation
                     </Button>
