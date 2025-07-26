@@ -30,7 +30,7 @@ export async function PUT(
         });
 
     } catch (error) {
-        console.error('Reject request error:', error);
+        //console.error('Reject request error:', error);
         return NextResponse.json(
             { error: 'Failed to reject consultation request' },
             { status: 500 }

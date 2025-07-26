@@ -96,7 +96,7 @@ export async function POST(req: NextRequest) {
         // Create JWT token
         const jwtSecret = process.env.JWT_SECRET;
         if (!jwtSecret) {
-            console.error('❌ JWT_SECRET not available during token creation');
+            //console.error('❌ JWT_SECRET not available during token creation');
             return NextResponse.json(
                 { error: 'Server configuration error' },
                 { status: 500 }
@@ -145,7 +145,7 @@ export async function POST(req: NextRequest) {
         return response;
 
     } catch (error) {
-        console.error('Registration error:', error);
+        //console.error('Registration error:', error);
         return NextResponse.json(
             { error: 'Internal server error' },
             { status: 500 }

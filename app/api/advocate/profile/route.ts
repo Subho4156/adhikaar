@@ -140,7 +140,7 @@ export async function POST(request: NextRequest) {
         });
 
     } catch (error) {
-        console.error('Error creating/updating advocate profile:', error);
+        //console.error('Error creating/updating advocate profile:', error);
         return NextResponse.json(
             { error: 'Internal server error' },
             { status: 500 }
@@ -228,7 +228,7 @@ export async function GET(request: NextRequest) {
         }
 
     } catch (error) {
-        console.error('Error fetching advocate profile:', error);
+        //console.error('Error fetching advocate profile:', error);
         return NextResponse.json(
             { error: 'Internal server error' },
             { status: 500 }
@@ -306,7 +306,7 @@ export async function PUT(request: NextRequest) {
         });
 
     } catch (error) {
-        console.error('Error updating advocate profile:', error);
+        //console.error('Error updating advocate profile:', error);
         return NextResponse.json(
             { error: 'Internal server error' },
             { status: 500 }
@@ -342,7 +342,7 @@ export async function DELETE(request: NextRequest) {
         });
 
     } catch (error) {
-        console.error('Error deleting advocate profile:', error);
+        //console.error('Error deleting advocate profile:', error);
         return NextResponse.json(
             { error: 'Internal server error' },
             { status: 500 }

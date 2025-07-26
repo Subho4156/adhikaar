@@ -31,7 +31,7 @@ export async function GET(
 
         return NextResponse.json(profile)
     } catch (error) {
-        console.error('Profile fetch error:', error)
+        //console.error('Profile fetch error:', error)
         return NextResponse.json({ error: 'Internal server error' }, { status: 500 })
     }
 }
@@ -44,12 +44,12 @@ export async function PUT(
         const { id } = await params
         const data = await req.json()
 
-        console.log('Profile update request for ID:', id)
-        console.log('Update data received:', JSON.stringify(data, null, 2))
+        // console.log('Profile update request for ID:', id)
+        // console.log('Update data received:', JSON.stringify(data, null, 2))
 
         // Validate required fields
         if (!data || Object.keys(data).length === 0) {
-            console.log('Error: No data provided for update')
+            //console.log('Error: No data provided for update')
             return NextResponse.json(
                 { error: 'No data provided for update' },
                 { status: 400 }
@@ -73,7 +73,7 @@ export async function PUT(
             mappedData[mappedKey] = data[key];
         });
 
-        console.log('Mapped data for database:', JSON.stringify(mappedData, null, 2))
+        //console.log('Mapped data for database:', JSON.stringify(mappedData, null, 2))
 
         // Validate role if being updated
         if (mappedData.role) {
@@ -93,8 +93,8 @@ export async function PUT(
 
             // Validate the role
             if (!Object.values(UserRole).includes(mappedData.role as UserRole)) {
-                console.log('Error: Invalid role provided:', mappedData.role)
-                console.log('Valid roles:', Object.values(UserRole))
+                // console.log('Error: Invalid role provided:', mappedData.role)
+                // console.log('Valid roles:', Object.values(UserRole))
                 return NextResponse.json(
                     { error: `Invalid role provided: ${mappedData.role}` },
                     { status: 400 }
@@ -109,11 +109,11 @@ export async function PUT(
         })
 
         if (!existingProfile) {
-            console.log('Error: Profile not found for ID:', id)
+            //console.log('Error: Profile not found for ID:', id)
             return NextResponse.json({ error: 'Profile not found' }, { status: 404 })
         }
 
-        console.log('Existing profile found:', existingProfile.email)
+        //console.log('Existing profile found:', existingProfile.email)
 
         // Determine if this is a significant profile update that requires VKYC re-verification
         const significantFields = ['first_name', 'last_name', 'phone', 'address', 'role'] as const
@@ -122,7 +122,7 @@ export async function PUT(
             return mappedData[field] !== undefined && mappedData[field] !== existingProfile[fieldKey]
         })
 
-        console.log('Is significant update:', isSignificantUpdate)
+        //console.log('Is significant update:', isSignificantUpdate)
 
         // Handle role change logic
         const professionalRoles = ['BARRISTER', 'LAWYER', 'GOVERNMENT_OFFICIAL']
@@ -140,7 +140,7 @@ export async function PUT(
             })
         }
 
-        console.log('Final update data:', JSON.stringify(updateData, null, 2))
+        //console.log('Final update data:', JSON.stringify(updateData, null, 2))
 
         // Update profile
         await prisma.profile.update({
@@ -150,7 +150,7 @@ export async function PUT(
 
         // If VKYC was reset due to significant changes, also clear VKYC documents
         if (isSignificantUpdate && existingProfile.vkyc_completed) {
-            console.log('Clearing VKYC documents due to significant profile update')
+            //console.log('Clearing VKYC documents due to significant profile update')
             await prisma.vkycDocument.deleteMany({
                 where: { user_id: id }
             })
@@ -200,10 +200,10 @@ export async function PUT(
             requires_vkyc: isSignificantUpdate
         }
 
-        console.log('Profile update successful:', response.message)
+        //console.log('Profile update successful:', response.message)
         return NextResponse.json(response)
     } catch (error) {
-        console.error('Profile update error:', error)
+        //console.error('Profile update error:', error)
         return NextResponse.json({ error: 'Internal server error' }, { status: 500 })
     }
 }
@@ -288,7 +288,7 @@ export async function DELETE(
             message: 'Profile and all related data deleted successfully'
         })
     } catch (error) {
-        console.error('Profile DELETE error:', error)
+        //console.error('Profile DELETE error:', error)
         return NextResponse.json({ error: 'Failed to delete profile' }, { status: 500 })
     }
 }

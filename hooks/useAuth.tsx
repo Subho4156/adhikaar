@@ -53,16 +53,16 @@ export function AuthProvider({ children }: { children: ReactNode }) {
             // console.log('📡 Session response headers:', response.headers);
 
             if (!response.ok) {
-                console.error('❌ Session check failed:', response.status, response.statusText);
+                //console.error('❌ Session check failed:', response.status, response.statusText);
                 setSession(null);
                 return;
             }
 
             const contentType = response.headers.get('content-type');
             if (!contentType || !contentType.includes('application/json')) {
-                console.error('❌ Response is not JSON:', contentType);
+                //console.error('❌ Response is not JSON:', contentType);
                 const text = await response.text();
-                console.error('📄 Response text:', text.substring(0, 500));
+                //console.error('📄 Response text:', text.substring(0, 500));
                 setSession(null);
                 return;
             }
@@ -76,7 +76,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
                 setSession(null);
             }
         } catch (error) {
-            console.error('💥 Session check error:', error);
+            //console.error('💥 Session check error:', error);
             setSession(null);
         } finally {
             setLoading(false);
