@@ -5,7 +5,6 @@ import jwt from 'jsonwebtoken'
 
 export async function POST(req: NextRequest) {
     try {
-        // Verify authentication
         const cookieStore = await cookies()
         const token = cookieStore.get('auth-token')?.value
 
@@ -20,7 +19,6 @@ export async function POST(req: NextRequest) {
             return NextResponse.json({ error: 'Missing image or document type' }, { status: 400 })
         }
 
-        // Upload to Cloudinary
         const uploadResult = await cloudinary.uploader.upload(image, {
             folder: `vkyc-documents/${decoded.userId}`,
             public_id: `${documentType}_${Date.now()}`,

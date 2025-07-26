@@ -20,7 +20,6 @@ export async function POST(req: NextRequest) {
         const decoded = jwt.verify(token, jwtSecret) as { userId: string }
         const { profileData, documents, kycType } = await req.json()
 
-        // Validate that user exists and get their role
         const existingProfile = await prisma.profile.findUnique({
             where: { id: decoded.userId }
         })
@@ -29,7 +28,6 @@ export async function POST(req: NextRequest) {
             return NextResponse.json({ error: 'User not found' }, { status: 404 })
         }
 
-        // Determine the correct KYC type based on user role
         let finalKycType: 'REGULAR' | 'PROFESSIONAL';
 
         if (existingProfile.role === 'REGULAR_USER') {
@@ -39,11 +37,9 @@ export async function POST(req: NextRequest) {
             existingProfile.role === 'GOVERNMENT_OFFICIAL') {
             finalKycType = 'PROFESSIONAL';
         } else {
-            // Default fallback
             finalKycType = 'REGULAR';
         }
 
-        // Update profile with VKYC completion
         await prisma.profile.update({
             where: { id: decoded.userId },
             data: {
@@ -54,14 +50,11 @@ export async function POST(req: NextRequest) {
             }
         })
 
-        // Save document records if provided
         if (documents && Array.isArray(documents) && documents.length > 0) {
-            // First, delete any existing VKYC documents for this user
             await prisma.vkycDocument.deleteMany({
                 where: { user_id: decoded.userId }
             })
 
-            // Create new VKYC documents with correct enum value
             await prisma.vkycDocument.createMany({
                 data: documents.map((doc: { type?: string; document_type?: string; url?: string; document_url?: string }) => ({
                     user_id: decoded.userId,
@@ -72,7 +65,6 @@ export async function POST(req: NextRequest) {
             })
         }
 
-        // Fetch updated profile with related data
         const profileWithData = await prisma.profile.findUnique({
             where: { id: decoded.userId },
             include: {

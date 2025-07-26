@@ -85,7 +85,7 @@ const CameraCapture = ({ onCapture, onClose, title = "Take Photo" }: CameraCaptu
 
   const retakePhoto = useCallback(() => {
     setCapturedImage(null);
-    // Restart camera for retake
+
     startCamera();
   }, [startCamera]);
 
@@ -104,14 +104,13 @@ const CameraCapture = ({ onCapture, onClose, title = "Take Photo" }: CameraCaptu
   useEffect(() => {
     startCamera();
 
-    // Cleanup on unmount
     return () => {
       stopCamera();
     };
   }, [startCamera, stopCamera]);
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50">
+    <div className="fixed inset-0 bg-background bg-opacity-75 flex items-center justify-center z-50">
       <Card className="w-full max-w-md mx-4">
         <CardContent className="p-6">
           <div className="flex justify-between items-center mb-4">

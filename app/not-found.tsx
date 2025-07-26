@@ -19,7 +19,7 @@ export default function NotFound() {
     <div className="min-h-screen flex flex-col items-center justify-center">
       <div className="text-center max-w-md px-4">
         <div className="flex justify-center mb-6">
-          <div className="bg-gradient-to-r from-slate-700 to-slate-900 p-3 rounded-lg">
+          <div className="p-3 border rounded-none">
             <Scale className="w-8 h-8 text-primary" />
           </div>
         </div>

@@ -1,94 +1,94 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { GoogleGenerativeAI } from '@google/generative-ai';
-import { extractPDFText, extractPDFTextAdvanced } from '@/lib/pdfExtractor';
+import { NextRequest, NextResponse } from "next/server";
+import { GoogleGenerativeAI } from "@google/generative-ai";
+import { extractPDFText, extractPDFTextAdvanced } from "@/lib/pdfExtractor";
 
 export async function POST(req: NextRequest) {
+  try {
+    const { fileContent, fileName, targetLanguage, apiKey } = await req.json();
+
+    if (!fileContent || !targetLanguage || !apiKey) {
+      return NextResponse.json(
+        { error: "File content, target language, and API key are required" },
+        { status: 400 }
+      );
+    }
+
+    let documentText = "";
     try {
-        const { fileContent, fileName, targetLanguage, apiKey } = await req.json();
+      console.log("Processing PDF file for translation:", fileName);
 
-        if (!fileContent || !targetLanguage || !apiKey) {
-            return NextResponse.json(
-                { error: 'File content, target language, and API key are required' },
-                { status: 400 }
-            );
-        }
+      const binaryString = atob(fileContent);
+      const bytes = new Uint8Array(binaryString.length);
+      for (let i = 0; i < binaryString.length; i++) {
+        bytes[i] = binaryString.charCodeAt(i);
+      }
+      const arrayBuffer = bytes.buffer;
 
-        // Extract text from PDF
-        let documentText = '';
+      if (arrayBuffer.byteLength === 0) {
+        throw new Error("Empty PDF file received");
+      }
+
+      console.log("PDF size:", arrayBuffer.byteLength, "bytes");
+
+      const header = new Uint8Array(arrayBuffer.slice(0, 5));
+      const pdfHeader = String.fromCharCode(...header);
+      if (!pdfHeader.startsWith("%PDF")) {
+        throw new Error("File is not a valid PDF document");
+      }
+
+      console.log("Attempting simple PDF extraction...");
+      documentText = await extractPDFText(arrayBuffer);
+
+      if (
+        !documentText ||
+        documentText.length < 50 ||
+        documentText.includes("No readable text found")
+      ) {
+        console.log("Simple extraction failed, trying advanced method...");
         try {
-            console.log('Processing PDF file for translation:', fileName);
-
-            // Convert base64 to ArrayBuffer
-            const binaryString = atob(fileContent);
-            const bytes = new Uint8Array(binaryString.length);
-            for (let i = 0; i < binaryString.length; i++) {
-                bytes[i] = binaryString.charCodeAt(i);
-            }
-            const arrayBuffer = bytes.buffer;
-
-            if (arrayBuffer.byteLength === 0) {
-                throw new Error('Empty PDF file received');
-            }
-
-            console.log('PDF size:', arrayBuffer.byteLength, 'bytes');
-
-            // Check PDF header
-            const header = new Uint8Array(arrayBuffer.slice(0, 5));
-            const pdfHeader = String.fromCharCode(...header);
-            if (!pdfHeader.startsWith('%PDF')) {
-                throw new Error('File is not a valid PDF document');
-            }
-
-            // Try simple extraction first
-            console.log('Attempting simple PDF extraction...');
-            documentText = await extractPDFText(arrayBuffer);
-
-            // If simple extraction didn't work well, try advanced method
-            if (!documentText || documentText.length < 50 || documentText.includes('No readable text found')) {
-                console.log('Simple extraction failed, trying advanced method...');
-                try {
-                    documentText = await extractPDFTextAdvanced(arrayBuffer);
-                } catch (advancedError) {
-                    console.warn('Advanced extraction also failed:', advancedError);
-                    // Keep the simple extraction result
-                }
-            }
-
-            console.log('Final extracted text length:', documentText.length);
-            console.log('Text preview:', documentText.substring(0, 200) + '...');
-
-            if (!documentText || documentText.trim().length < 10) {
-                throw new Error('No readable text found in the PDF. This might be a scanned document or image-based PDF that requires OCR.');
-            }
-
-        } catch (extractError: any) {
-            console.error('PDF extraction error:', extractError);
-            return NextResponse.json(
-                { error: `Failed to process PDF: ${extractError.message}` },
-                { status: 400 }
-            );
+          documentText = await extractPDFTextAdvanced(arrayBuffer);
+        } catch (advancedError) {
+          console.warn("Advanced extraction also failed:", advancedError);
         }
+      }
 
-        // Translate with AI
-        try {
-            const genAI = new GoogleGenerativeAI(apiKey);
-            const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+      console.log("Final extracted text length:", documentText.length);
+      console.log("Text preview:", documentText.substring(0, 200) + "...");
 
-            const languageMap = {
-                'english': 'English',
-                'bengali': 'Bengali',
-                'hindi': 'Hindi',
-                'telugu': 'Telugu',
-                'tamil': 'Tamil',
-                'spanish': 'Spanish',
-                'chinese': 'Chinese (Simplified)',
-                'french': 'French',
-                'german': 'German'
-            };
+      if (!documentText || documentText.trim().length < 10) {
+        throw new Error(
+          "No readable text found in the PDF. This might be a scanned document or image-based PDF that requires OCR."
+        );
+      }
+    } catch (extractError: any) {
+      console.error("PDF extraction error:", extractError);
+      return NextResponse.json(
+        { error: `Failed to process PDF: ${extractError.message}` },
+        { status: 400 }
+      );
+    }
 
-            const targetLangName = languageMap[targetLanguage as keyof typeof languageMap] || targetLanguage;
+    try {
+      const genAI = new GoogleGenerativeAI(apiKey);
+      const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
-            const translationPrompt = `You are a professional document translator specializing in legal and business documents.
+      const languageMap = {
+        english: "English",
+        bengali: "Bengali",
+        hindi: "Hindi",
+        telugu: "Telugu",
+        tamil: "Tamil",
+        spanish: "Spanish",
+        chinese: "Chinese (Simplified)",
+        french: "French",
+        german: "German",
+      };
+
+      const targetLangName =
+        languageMap[targetLanguage as keyof typeof languageMap] ||
+        targetLanguage;
+
+      const translationPrompt = `You are a professional document translator specializing in legal and business documents.
 
 Please translate the following document text into ${targetLangName}:
 
@@ -118,41 +118,41 @@ IMPORTANT GUIDELINES:
 
 Ensure the translation is accurate, professional, and legally sound for ${targetLangName} speakers.`;
 
-            const result = await model.generateContent(translationPrompt);
-            const response = result.response;
-            const text = response.text();
+      const result = await model.generateContent(translationPrompt);
+      const response = result.response;
+      const text = response.text();
 
-            try {
-                const cleanedText = text.replace(/```json\n?|\n?```/g, '').trim();
-                const translation = JSON.parse(cleanedText);
+      try {
+        const cleanedText = text.replace(/```json\n?|\n?```/g, "").trim();
+        const translation = JSON.parse(cleanedText);
 
-                return NextResponse.json({
-                    originalLanguage: translation.originalLanguage || 'Auto-detected',
-                    translatedContent: translation.translatedContent || text
-                });
+        return NextResponse.json({
+          originalLanguage: translation.originalLanguage || "Auto-detected",
+          translatedContent: translation.translatedContent || text,
+        });
+      } catch (parseError) {
+        console.error("JSON parsing error:", parseError);
 
-            } catch (parseError) {
-                console.error('JSON parsing error:', parseError);
-
-                return NextResponse.json({
-                    originalLanguage: 'Auto-detected',
-                    translatedContent: text
-                });
-            }
-
-        } catch (aiError: any) {
-            console.error('AI translation error:', aiError);
-            return NextResponse.json(
-                { error: 'Failed to translate document with AI. Please check your API key and try again.' },
-                { status: 500 }
-            );
-        }
-
-    } catch (error: any) {
-        console.error('Document translation error:', error);
-        return NextResponse.json(
-            { error: 'Failed to translate document. Please try again.' },
-            { status: 500 }
-        );
+        return NextResponse.json({
+          originalLanguage: "Auto-detected",
+          translatedContent: text,
+        });
+      }
+    } catch (aiError: any) {
+      console.error("AI translation error:", aiError);
+      return NextResponse.json(
+        {
+          error:
+            "Failed to translate document with AI. Please check your API key and try again.",
+        },
+        { status: 500 }
+      );
     }
+  } catch (error: any) {
+    console.error("Document translation error:", error);
+    return NextResponse.json(
+      { error: "Failed to translate document. Please try again." },
+      { status: 500 }
+    );
+  }
 }
