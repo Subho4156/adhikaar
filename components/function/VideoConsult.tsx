@@ -657,7 +657,7 @@ const VideoCallModal: React.FC<VideoCallModalProps> = ({
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50">
-      <div className="bg-white rounded-lg p-6 w-full max-w-4xl mx-4">
+      <div className=" rounded-none border-2 p-6 w-full max-w-4xl mx-4">
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-xl font-bold">
             {videoCall.callStatus === "calling"
@@ -675,7 +675,7 @@ const VideoCallModal: React.FC<VideoCallModalProps> = ({
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
           {/* Remote Video */}
-          <div className="relative bg-slate-100 rounded-lg overflow-hidden aspect-video">
+          <div className="relative bg-slate-100 rounded-none overflow-hidden aspect-video">
             {videoCall.remoteStream ? (
               <video
                 ref={remoteVideoRef}
@@ -819,7 +819,7 @@ const ChatModal: React.FC<{
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div className="bg-white rounded-lg w-full max-w-md mx-4 h-96 flex flex-col">
+      <div className=" rounded-none border-2 w-full max-w-md mx-4 h-96 flex flex-col">
         <div className="flex items-center justify-between p-4 border-b">
           <h3 className="text-lg font-medium">Chat with {participantName}</h3>
           <Button variant="ghost" size="sm" onClick={onClose}>
@@ -1306,23 +1306,23 @@ const VideoConsult = () => {
       if (isAdvocate) {
         hasPaidConsultation = consultationRequests.some(
           (req) =>
-            req.clientId === participantId && req.paymentStatus === "paid"
+            req.clientId === participantId 
         );
       } else {
         hasPaidConsultation = clientRequests.some(
           (req) =>
-            req.advocateId === participantId && req.paymentStatus === "paid"
+            req.advocateId === participantId 
         );
       }
 
-      if (!hasPaidConsultation) {
-        toast({
-          title: "Payment Required",
-          description: "Please complete payment before starting a video call.",
-          variant: "destructive",
-        });
-        return;
-      }
+      // if (!hasPaidConsultation) {
+      //   toast({
+      //     title: "Payment Required",
+      //     description: "Please complete payment before starting a video call.",
+      //     variant: "destructive",
+      //   });
+      //   return;
+      // }
 
       const isParticipantOnline = userOnlineStatus[participantId];
       if (!isParticipantOnline) {
@@ -1372,26 +1372,26 @@ const VideoConsult = () => {
   };
 
   const handleStartChat = (participantId: string) => {
-    let hasPaidConsultation = false;
+    let hasPaidConsultation = true;
     if (isAdvocate) {
       hasPaidConsultation = consultationRequests.some(
-        (req) => req.clientId === participantId && req.paymentStatus === "paid"
+        (req) => req.clientId === participantId 
       );
     } else {
       hasPaidConsultation = clientRequests.some(
         (req) =>
-          req.advocateId === participantId && req.paymentStatus === "paid"
+          req.advocateId === participantId 
       );
     }
 
-    if (!hasPaidConsultation) {
-      toast({
-        title: "Payment Required",
-        description: "Please complete payment before starting a chat.",
-        variant: "destructive",
-      });
-      return;
-    }
+    // if (!hasPaidConsultation) {
+    //   toast({
+    //     title: "Payment Required",
+    //     description: "Please complete payment before starting a chat.",
+    //     variant: "destructive",
+    //   });
+    //   return;
+    // }
 
     setActiveChat(participantId);
     setIsChatOpen(true);
@@ -1817,82 +1817,66 @@ const ClientDashboard: React.FC<ClientDashboardProps> = ({
             }
           };
 
-          return (
-            <Card key={lawyer.id} className="hover:shadow-lg transition-shadow">
-              <CardHeader>
-                <div className="flex items-start space-x-4">
-                  <Image
-                    width={64}
-                    height={64}
-                    src={lawyer.image}
-                    alt={lawyer.name}
-                    className="w-16 h-16 rounded-full object-cover bg-slate-200"
-                  />
-                  <div className="flex-1">
-                    <div className="flex items-center justify-between mb-1">
-                      <CardTitle className="text-lg">{lawyer.name}</CardTitle>
-                      <div className="flex items-center space-x-2">
-                        <div
-                          className={`w-3 h-3 rounded-full ${
-                            userOnlineStatus[lawyer.id]
-                              ? "bg-green-500"
-                              : "bg-gray-400"
-                          }`}
-                        ></div>
-                        <span
-                          className={`text-xs font-medium ${
-                            userOnlineStatus[lawyer.id]
-                              ? "text-green-600"
-                              : "text-gray-500"
-                          }`}
-                        >
-                          {userOnlineStatus[lawyer.id] ? "Online" : "Offline"}
-                        </span>
-                      </div>
-                    </div>
-                    <CardDescription className="text-sm">
-                      {lawyer.specialization}
-                    </CardDescription>
-                    <div className="flex items-center space-x-4 mt-2 text-sm text-slate-600">
-                      <div className="flex items-center space-x-1">
-                        <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
-                        <span>{lawyer.rating}</span>
-                      </div>
-                      <div className="flex items-center space-x-1">
-                        <Clock className="w-4 h-4" />
-                        <span>{lawyer.experience}+ years</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-3 mb-4">
-                  <div className="flex items-center space-x-2 text-sm text-slate-600">
-                    <MapPin className="w-4 h-4" />
-                    <span>{lawyer.location}</span>
-                  </div>
-                  <div className="flex flex-wrap gap-1">
-                    {lawyer.languages.map((lang, index) => (
-                      <Badge
-                        key={index}
-                        variant="secondary"
-                        className="text-xs"
-                      >
-                        {lang}
-                      </Badge>
-                    ))}
-                  </div>
-                  <div className="text-lg font-semibold text-sky-600">
-                    ₹{lawyer.rate}/hour
-                  </div>
-                  {isPaid && (
-                    <Badge className="bg-green-100 text-green-800">
-                      <DollarSign className="w-3 h-3 mr-1" />
-                      Paid Access
-                    </Badge>
-                  )}
-                </div>
+                    return (
+                        <Card key={lawyer.id} className="hover:shadow-lg transition-shadow">
+                            <CardHeader>
+                                <div className="flex items-start space-x-4">
+                                    <Image
+                                        width={64}
+                                        height={64}
+                                        src={lawyer.image}
+                                        alt={lawyer.name}
+                                        className="w-16 h-16 rounded-full object-cover bg-slate-200"
+                                    />
+                                    <div className="flex-1">
+                                        <div className="flex items-center justify-between mb-1">
+                                            <CardTitle className="text-lg">{lawyer.name}</CardTitle>
+                                            <div className="flex items-center space-x-2">
+                                                <div className={`w-3 h-3 rounded-full ${userOnlineStatus[lawyer.id] ? 'bg-green-500' : 'bg-gray-400'}`}></div>
+                                                <span className={`text-xs font-medium ${userOnlineStatus[lawyer.id] ? 'text-green-600' : 'text-gray-500'}`}>
+                                                    {userOnlineStatus[lawyer.id] ? 'Online' : 'Offline'}
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <CardDescription className="text-sm">
+                                            {lawyer.specialization}
+                                        </CardDescription>
+                                        <div className="flex items-center space-x-4 mt-2 text-sm text-slate-600">
+                                            <div className="flex items-center space-x-1">
+                                                <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+                                                <span>{lawyer.rating}</span>
+                                            </div>
+                                            <div className="flex items-center space-x-1">
+                                                <Clock className="w-4 h-4" />
+                                                <span>{lawyer.experience}+ years</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </CardHeader>
+                            <CardContent>
+                                <div className="space-y-3 mb-4">
+                                    <div className="flex items-center space-x-2 text-sm text-slate-600">
+                                        <MapPin className="w-4 h-4" />
+                                        <span>{lawyer.location}</span>
+                                    </div>
+                                    <div className="flex flex-wrap gap-1">
+                                        {lawyer.languages.map((lang, index) => (
+                                            <Badge key={index} variant="secondary" className="text-xs">
+                                                {lang}
+                                            </Badge>
+                                        ))}
+                                    </div>
+                                    <div className="text-lg font-semibold text-sky-600">
+                                        ₹{lawyer.rate}/hour
+                                    </div>
+                                    {isPaid && (
+                                        <Badge className="bg-green-100 text-green-800">
+                                            <DollarSign className="w-3 h-3 mr-1" />
+                                            Paid Access
+                                        </Badge>
+                                    )}
+                                </div>
 
                 <div className="space-y-2">
                   <Button
@@ -1905,27 +1889,23 @@ const ClientDashboard: React.FC<ClientDashboardProps> = ({
                     }
                   >
                     <Video className="w-4 h-4 mr-2" />
-                    {loading
-                      ? "Starting..."
-                      : !isPaid
+                    {!isPaid
                       ? "Request Consultation"
                       : userOnlineStatus[lawyer.id]
                       ? "🟢 Start Video Call (Online)"
                       : "Call (Offline - Will Notify)"}
                   </Button>
-
                   <div className="flex space-x-2">
                     <Button
                       variant="outline"
                       size="sm"
-                      className="flex-1"
+                      className="flex-1 p-4"
                       disabled={isPaid}
                       onClick={() => onStartChat(lawyer.id)}
                     >
-                      <MessageCircle className="w-4 h-4 mr-1" />
+                      <MessageCircle className="w-4 h-4" />
                       Chat
                     </Button>
-
                     <Button
                       variant="outline"
                       size="sm"
@@ -1935,7 +1915,6 @@ const ClientDashboard: React.FC<ClientDashboardProps> = ({
                       <Phone className="w-4 h-4 mr-1" />
                       Call
                     </Button>
-
                     <Button
                       variant="outline"
                       size="sm"
