@@ -629,7 +629,7 @@ const VideoCallModal: React.FC<VideoCallModalProps> = ({
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50">
-      <div className="bg-white rounded-lg p-6 w-full max-w-4xl mx-4">
+      <div className=" rounded-none border-2 p-6 w-full max-w-4xl mx-4">
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-xl font-bold">
             {videoCall.callStatus === "calling"
@@ -647,7 +647,7 @@ const VideoCallModal: React.FC<VideoCallModalProps> = ({
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
           {/* Remote Video */}
-          <div className="relative bg-slate-100 rounded-lg overflow-hidden aspect-video">
+          <div className="relative bg-slate-100 rounded-none overflow-hidden aspect-video">
             {videoCall.remoteStream ? (
               <video
                 ref={remoteVideoRef}
