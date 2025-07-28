@@ -362,13 +362,13 @@ const PublishReport = () => {
                 <div className="max-w-6xl mx-auto">
                     <div className="mb-8">
                         <h1 className="text-3xl font-bold text-primary">Publish Legal Report</h1>
-                        <p className="text-slate-400 mt-2">Share your legal expertise with the community</p>
-                        <div className="mt-4 p-4 bg-sky-50 rounded-none">
-                            <p className="text-sm text-background">
+                        <p className="text-muted-foreground mt-2">Share your legal expertise with the community</p>
+                        <div className="mt-4 p-4 border rounded-none">
+                            <p className="text-sm text-primary">
                                 <strong>Total Published Reports:</strong> {reports.length}
                             </p>
                         </div>
-                    </div>  
+                    </div>
 
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                         <Card className='rounded-none'>
@@ -510,9 +510,9 @@ const PublishReport = () => {
                                                     {...getRootProps()}
                                                     className={`
                                                         border-2 border-dashed rounded-none p-8 text-center cursor-pointer transition-all duration-200
-                                                        ${isDragActive && !isDragReject ? 'border-sky-400 bg-sky-50' : ''}
+                                                        ${isDragActive && !isDragReject ? 'border-red-500 bg-sky-50' : ''}
                                                         ${isDragReject ? 'border-red-400 bg-red-50' : ''}
-                                                        ${!isDragActive ? 'border-gray-300 hover:border-sky-400 hover:bg-sky-50' : ''}
+                                                        ${!isDragActive ? 'border-muted-foreground hover:border-muted-foreground hover:bg-primary' : ''}
                                                     `}
                                                 >
                                                     <input {...getInputProps()} />
