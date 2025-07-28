@@ -14,7 +14,6 @@ export async function GET(request: NextRequest) {
         const searchParams = request.nextUrl.searchParams;
         const year = parseInt(searchParams.get('year') || new Date().getFullYear().toString());
 
-        // Get monthly earnings for the year
         const monthlyEarnings = await prisma.monthlyEarnings.findMany({
             where: {
                 advocate_id: session.user.id,
@@ -25,7 +24,6 @@ export async function GET(request: NextRequest) {
             },
         });
 
-        // Get total earnings and consultation count
         const totalStats = await prisma.monthlyEarnings.aggregate({
             where: {
                 advocate_id: session.user.id,

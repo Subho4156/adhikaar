@@ -47,7 +47,6 @@ const Navbar = () => {
             setProfile(profileData);
           }
         } catch (error) {
-          //console.error("Error fetching profile:", error);
         }
       } else {
         setProfile(null);
@@ -90,7 +89,6 @@ const Navbar = () => {
       icon: <FileText className="w-4 h-4" />,
       requiresAuth: true,
     },
-    { name: 'Video Consult', href: '/consult', icon: <Video className="w-4 h-4" />, requiresAuth: true },
     {
       name: "Document Processor",
       href: "/document-processor",

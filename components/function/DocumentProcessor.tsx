@@ -727,7 +727,10 @@ const DocumentProcessor = () => {
                     onChange={(e) => setApiKey(e.target.value)}
                   />
                 </div>
-                <Button onClick={handleApiKeySubmit} className="w-full cursor-pointer">
+                <Button
+                  onClick={handleApiKeySubmit}
+                  className="w-full cursor-pointer"
+                >
                   Save API Key
                 </Button>
                 <p className="text-xs text-slate-500 text-center">
@@ -1168,7 +1171,6 @@ const DocumentProcessor = () => {
                             />
                           ) : (
                             <div className="bg-white border rounded-none p-4 max-h-96 overflow-y-auto">
-                            
                               <div className="text-sm text-slate-700">
                                 {renderFormattedText(doc.content)}
                               </div>
